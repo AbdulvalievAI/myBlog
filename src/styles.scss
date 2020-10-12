@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+@import "src/variables";
+
+* {
+  font-family: Open Sans, sans-serif;
+  color: #685B5B;
+  &:focus {
+    outline: none;
+  }
+}
+body {
+  margin: 0;
+}
+button {
+  background-color: $primary;
+  height: 40px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 2px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 2px;
+  cursor: pointer;
+  &:hover {
+    background-color: desaturate($primary, 15%);
+  }
+  &:active {
+    background-color: desaturate($primary, 30%);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+  }
+  &:disabled {
+    background-color: lightgrey;
+  }
+}

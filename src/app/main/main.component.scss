@@ -1,0 +1,30 @@
+:host {
+  h2 {
+    color: blue;
+  }
+  button {
+    display: block;
+    margin: 0 auto 64px auto;
+    width: 320px;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    li {
+      padding-top: 32px;
+      &:not(:first-child) {
+        padding-top: 40px;
+      }
+      &:last-child {
+        padding-bottom: 40px;
+      }
+    }
+  }
+  img {
+    display: block;
+    margin: 0 auto;
+    padding: 16px 0;
+    width: 32px;
+  }
+}

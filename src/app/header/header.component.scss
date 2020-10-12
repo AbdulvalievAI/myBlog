@@ -1,0 +1,25 @@
+@import "src/variables";
+
+:host {
+  position: fixed;
+  width: 100%;
+  background-color: $blue;
+  height: $headerHeight;
+  display: flex;
+  align-items: center;
+  top: 0;
+  h1 {
+    color: white;
+    font-size: 24px;
+    line-height: 33px;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    width: 250px;
+    cursor: pointer;
+  }
+  button {
+    margin: 16px 16px 16px auto;
+    width: 144px;
+  }
+}

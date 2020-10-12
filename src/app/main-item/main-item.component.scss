@@ -1,0 +1,55 @@
+@import "src/variables";
+
+:host {
+  display: flex;
+  justify-content: center;
+}
+.main-item {
+  width: 750px;
+  max-width: 750px;
+  h2 {
+    font-family: Open Sans, sans-serif;
+    font-size: 18px;
+    line-height: 25px;
+    color: #ffffff;
+    background-color: $primaryLight;
+    min-height: 80px;
+    padding: 8px 16px;
+    margin: 0;
+  }
+  &__text {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    margin: 0;
+  }
+  &__content {
+    padding: 40px 18px 24px 18px;
+    border-width: 0 1px 1px;
+    border-color: #e8f6f3;
+    border-style: solid;
+    border-radius: 0 0 2px 2px;
+  }
+  &__description {
+    height: 88px;
+  }
+  &__info {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__source {
+    opacity: 0.7;
+  }
+  &__date {
+    opacity: 0.7;
+    font-weight: 700;
+  }
+}
+
+.truncate-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
