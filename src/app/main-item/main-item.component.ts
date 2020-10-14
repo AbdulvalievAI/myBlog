@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { INew } from '../sourceData/inew';
+import { INew } from '../../services/inew';
 
 @Component({
   selector: 'app-main-item',

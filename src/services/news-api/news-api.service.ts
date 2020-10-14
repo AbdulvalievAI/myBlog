@@ -9,6 +9,7 @@ import { ISourceData } from '../ISourceData';
 @Injectable({
   providedIn: 'root',
 })
+/** Сервия для работы с внешним API постов/новостей */
 export class NewsApiService implements ISourceData {
   private _apiUrl = 'https://newsapi.org/v2/';
   private _apiKey = '44caf8fd958444179e57d926c439f559';

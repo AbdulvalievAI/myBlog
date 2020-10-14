@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { NewsApiService } from '../sourceData/news-api/news-api.service';
-import { INew } from '../sourceData/inew';
-import { ISourceData } from '../sourceData/ISourceData';
+import { NewsApiService } from '../../services/news-api/news-api.service';
+import { INew } from '../../services/inew';
+import { ISourceData } from '../../services/ISourceData';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -43,7 +43,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.isLoad = true;
     this._sourceDataSub = this._sourceDataService.getPosts().subscribe({
       next: (data) => {
-        if (data.length) {
+        if (data && data.length) {
           this.news.push(...data);
         } else {
           this._isStopLoad = true;
