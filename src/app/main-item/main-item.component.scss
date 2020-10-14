@@ -1,12 +1,55 @@
 @import "src/variables";
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fade-in {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes fade-in {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 :host {
   display: flex;
   justify-content: center;
 }
+
 .main-item {
   width: 750px;
   max-width: 750px;
+  cursor: pointer;
+  transition: $timeAnimOpacity;
+  -webkit-animation: fade-in $timeAnimOpacity linear;
+  -moz-animation: fade-in $timeAnimOpacity linear;
+  -o-animation: fade-in $timeAnimOpacity linear;
+  animation: fade-in $timeAnimOpacity linear;
+  &:hover {
+    transition: $timeAnimOpacity;
+    background-color: whitesmoke;
+  }
   h2 {
     font-family: Open Sans, sans-serif;
     font-size: 18px;
@@ -23,6 +66,13 @@
     font-weight: 400;
     margin: 0;
   }
+  &__text--truncate {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
   &__content {
     padding: 40px 18px 24px 18px;
     border-width: 0 1px 1px;
@@ -36,20 +86,14 @@
   &__info {
     display: flex;
     justify-content: space-between;
+    margin: 0;
   }
   &__source {
     opacity: 0.7;
+    margin: 0;
   }
   &__date {
     opacity: 0.7;
     font-weight: 700;
   }
-}
-
-.truncate-text {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
 }

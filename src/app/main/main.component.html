@@ -7,5 +7,7 @@
     </li>
   </ul>
   <img *ngIf="isLoad" src="assets/spinner.svg" alt="Loading..." />
-  <button [disabled]="isLoad" (click)="getNews()">Load next articles</button>
+  <button *ngIf="false" [disabled]="isLoad" (click)="getNews()">
+    Load next articles
+  </button>
 </main>

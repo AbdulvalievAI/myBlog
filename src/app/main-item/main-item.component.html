@@ -1,11 +1,13 @@
-<div class="main-item">
+<div class="main-item" (click)="goToLink(newItem.url)">
   <h2>{{ newItem.title }}</h2>
   <div class="main-item__content">
     <div class="main-item__description">
       <p class="main-item__text truncate-text">{{ newItem.description }}</p>
     </div>
     <div class="main-item__info">
-      <p class="main-item__source main-item__text">{{ newItem.author }}</p>
+      <p class="main-item__source main-item__text--truncate">
+        {{ newItem.author }}
+      </p>
       <p class="main-item__date main-item__text">
         {{ newItem.publishedAt | date }}
       </p>

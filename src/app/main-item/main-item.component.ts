@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { INew } from '../api/inew';
+import { INew } from '../sourceData/inew';
 
 @Component({
   selector: 'app-main-item',
@@ -8,4 +8,8 @@ import { INew } from '../api/inew';
 })
 export class MainItemComponent {
   @Input() newItem: INew;
+
+  public goToLink(url: string): void {
+    window.open(url, '_blank');
+  }
 }

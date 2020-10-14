@@ -1,4 +1,4 @@
-import { INew } from './inew';
+import { INew } from '../inew';
 
 export interface IResponse {
   status: string;
