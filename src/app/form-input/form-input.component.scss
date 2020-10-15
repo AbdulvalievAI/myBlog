@@ -1,0 +1,23 @@
+.form-input {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  p {
+    margin: 0;
+  }
+  &__title {
+    font-size: 18px;
+    line-height: 25px;
+    width: 208px;
+  }
+  &__field {
+    max-width: 256px;
+  }
+  &__error {
+    color: red;
+    font-size: 14px;
+  }
+  input {
+    width: 100%;
+  }
+}

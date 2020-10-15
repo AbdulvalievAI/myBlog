@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { MainItemComponent } from './main-item/main-item.component';
+import { ModalComponent } from './modal/modal.component';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormInputComponent } from './form-input/form-input.component';
 
 @NgModule({
   declarations: [
@@ -14,9 +17,16 @@ import { MainItemComponent } from './main-item/main-item.component';
     HeaderComponent,
     MainComponent,
     MainItemComponent,
+    ModalComponent,
+    FormInputComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
+  providers: [HttpClientModule, FormBuilder],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

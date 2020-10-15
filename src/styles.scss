@@ -3,7 +3,7 @@
 
 * {
   font-family: Open Sans, sans-serif;
-  color: #685B5B;
+  color: #685b5b;
   &:focus {
     outline: none;
   }
@@ -32,5 +32,41 @@ button {
   }
   &:disabled {
     background-color: lightgrey;
+  }
+}
+.button-text {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  box-shadow: none;
+  color: $primary;
+  &:hover {
+    color: desaturate($primary, 15%);
+    background-color: transparent;
+  }
+  &:active {
+    color: desaturate($primary, 30%);
+    background-color: transparent;
+    box-shadow: none;
+  }
+  &:disabled {
+    background-color: transparent;
+    color: gray;
+  }
+}
+input {
+  height: 40px;
+  border-radius: 2px;
+  background: #ffffff;
+  border: 1px solid #d0cbcb;
+  box-sizing: border-box;
+  padding: 8px;
+  &:focus {
+    border-color: $primary;
+  }
+  &:invalid {
+    border-color: red;
   }
 }

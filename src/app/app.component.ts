@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalService } from '../services/modal/modal.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'my-blog';
+  public title = 'my-blog';
+
+  constructor(public _modalService: ModalService) {}
 }

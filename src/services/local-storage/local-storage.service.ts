@@ -40,9 +40,8 @@ export class LocalStorageService implements ISourceData {
   }
 
   /** Сохранение данных пользователя в локальное хранилище */
-  public saveUser(user: IUser): IUser {
+  public saveUser(user: IUser): void {
     this._localStorage.setItem(`user-${user.login}`, JSON.stringify(user));
-    return user;
   }
 
   /** Запрос данных пользователя из локального хранилища */

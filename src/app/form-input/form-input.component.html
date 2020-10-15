@@ -1,0 +1,7 @@
+<div class="form-input">
+  <p class="form-input__title">{{ title }}</p>
+  <div class="form-input__field">
+    <input [formControl]="fc" [type]="type" />
+    <p *ngIf="errorMessage" class="form-input__error">{{ errorMessage }}</p>
+  </div>
+</div>

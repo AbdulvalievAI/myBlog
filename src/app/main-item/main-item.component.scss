@@ -1,36 +1,5 @@
 @import "src/variables";
-@-webkit-keyframes fade-in {
-  0% {
-    opacity: 0.1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@-moz-keyframes fade-in {
-  0% {
-    opacity: 0.1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@-o-keyframes fade-in {
-  0% {
-    opacity: 0.1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes fade-in {
-  0% {
-    opacity: 0.1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+@import "src/mixins";
 
 :host {
   display: flex;
@@ -42,15 +11,12 @@
   max-width: 750px;
   cursor: pointer;
   transition: $timeAnimOpacity;
-  -webkit-animation: fade-in $timeAnimOpacity linear;
-  -moz-animation: fade-in $timeAnimOpacity linear;
-  -o-animation: fade-in $timeAnimOpacity linear;
-  animation: fade-in $timeAnimOpacity linear;
+  @include opacityAnimShow;
   &:hover {
     transition: $timeAnimOpacity;
     background-color: whitesmoke;
   }
-  h2 {
+  h3 {
     font-family: Open Sans, sans-serif;
     font-size: 18px;
     line-height: 25px;
