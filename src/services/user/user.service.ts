@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Md5 } from 'ts-md5/dist/md5';
-import { IUser } from '../iuser';
+import { IUser } from '../IUser';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Observable } from 'rxjs';
 import { SessionStorageService } from '../session-storage/session-storage.service';
@@ -55,6 +55,7 @@ export class UserService {
     });
   }
 
+  /** Деавторизация пользователя */
   public logout(): void {
     this._sessionStorageService.clearSession();
   }

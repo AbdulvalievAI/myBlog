@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../iuser';
+import { IUser } from '../IUser';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +11,12 @@ export class SessionStorageService {
     this._sessionStorage = window.sessionStorage;
   }
 
+  /** Сохранение сессии переданного пользователя */
   public saveSession(user: IUser): void {
     this._sessionStorage.setItem(this._keyUserStorage, JSON.stringify(user));
   }
 
+  /** Получение сессии текущего пользователя */
   public getSession(): IUser | null {
     let result = null;
     const user = this._sessionStorage.getItem(this._keyUserStorage);
@@ -24,6 +26,7 @@ export class SessionStorageService {
     return result;
   }
 
+  /** Отчистка сессии */
   public clearSession(): void {
     this._sessionStorage.clear();
   }

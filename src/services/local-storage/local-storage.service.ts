@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ISourceData } from '../ISourceData';
 import { Observable } from 'rxjs';
 import { IPost } from '../IPost';
-import { IUser } from '../iuser';
+import { IUser } from '../IUser';
 
 @Injectable({
   providedIn: 'root',

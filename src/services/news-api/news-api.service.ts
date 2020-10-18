@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IPost } from '../IPost';
-import { IResponse } from './iresponse';
+import { IResponse } from './IResponse';
 import { ISourceData } from '../ISourceData';
 
 @Injectable({
