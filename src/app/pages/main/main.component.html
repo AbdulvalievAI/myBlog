@@ -1,0 +1,13 @@
+<main>
+  <ul>
+    <li *ngFor="let post of posts">
+      <article>
+        <app-main-item [post]="post"></app-main-item>
+      </article>
+    </li>
+  </ul>
+  <img *ngIf="isLoad" src="assets/spinner.svg" alt="Loading..." />
+  <button *ngIf="false" [disabled]="isLoad" (click)="getNews()">
+    Load next articles
+  </button>
+</main>

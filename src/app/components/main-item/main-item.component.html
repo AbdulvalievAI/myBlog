@@ -1,0 +1,16 @@
+<div class="main-item" (click)="goToLink(post.url)">
+  <h3>{{ post.title }}</h3>
+  <div class="main-item__content">
+    <div class="main-item__description">
+      <p class="main-item__text truncate-text">{{ post.description }}</p>
+    </div>
+    <div class="main-item__info">
+      <p class="main-item__source main-item__text--truncate">
+        {{ post.author }}
+      </p>
+      <time class="main-item__date main-item__text">{{
+        post.publishedAt | date
+      }}</time>
+    </div>
+  </div>
+</div>

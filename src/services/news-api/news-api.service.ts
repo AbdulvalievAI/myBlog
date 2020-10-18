@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { INew } from '../inew';
+import { IPost } from '../IPost';
 import { IResponse } from './iresponse';
 import { ISourceData } from '../ISourceData';
 
@@ -17,32 +17,19 @@ export class NewsApiService implements ISourceData {
 
   constructor(private httpClient: HttpClient) {}
 
-  private getEverything(page: number, query): Observable<INew[]> {
+  private getEverything(page: number, query): Observable<IPost[]> {
     return this.getConfig('everything', `q=${query}&page=${page}`);
   }
 
-  private getConfig(method: string, filters: string): Observable<INew[]> {
+  private getConfig(method: string, filters: string): Observable<IPost[]> {
     return this.httpClient
       .get<IResponse>(
         `${this._apiUrl}${method}?apiKey=${this._apiKey}&${filters}`
       )
-      .pipe(
-        map((res) => res.articles),
-        map((articles) =>
-          articles.map((itemNew) => {
-            return {
-              url: itemNew.url,
-              title: itemNew.title,
-              description: itemNew.description,
-              author: itemNew.author,
-              publishedAt: itemNew.publishedAt,
-            };
-          })
-        )
-      );
+      .pipe(map((res) => res.articles));
   }
 
-  public getPosts(): Observable<INew[]> {
+  public getPosts(): Observable<IPost[]> {
     const config = this.getEverything(this._page, 'bitcoin');
     config.subscribe({
       next: (news) => {

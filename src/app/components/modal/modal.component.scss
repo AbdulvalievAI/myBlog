@@ -1,5 +1,5 @@
-@import "src/variables";
-@import "src/mixins";
+@import "../../../variables";
+@import "../../../mixins";
 
 .modal {
   @include opacityAnimShow(0.1s);
@@ -14,9 +14,9 @@
   align-items: center;
   &__content {
     background-color: white;
-    width: 750px;
+    width: $width;
     position: relative;
-    @media (max-width: 749px) {
+    @media (max-width: $width - 1px) {
       width: auto;
     }
   }

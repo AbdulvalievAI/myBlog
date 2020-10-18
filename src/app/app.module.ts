@@ -1,15 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { MainComponent } from './main/main.component';
-import { MainItemComponent } from './main-item/main-item.component';
-import { ModalComponent } from './modal/modal.component';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { FormInputComponent } from './form-input/form-input.component';
+import { MainComponent } from './pages/main/main.component';
+
+import { HeaderComponent } from './components/header/header.component';
+import { MainItemComponent } from './components/main-item/main-item.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { FormInputComponent } from './components/form-input/form-input.component';
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
-@import "src/variables";
-@import "src/mixins";
+@import "../../../variables";
+@import "../../../mixins";
 
 :host {
   display: flex;
@@ -7,8 +7,7 @@
 }
 
 .main-item {
-  width: 750px;
-  max-width: 750px;
+  width: 100%;
   cursor: pointer;
   transition: $timeAnimOpacity;
   @include opacityAnimShow;

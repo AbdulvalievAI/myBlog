@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ISourceData } from '../ISourceData';
 import { Observable } from 'rxjs';
-import { INew } from '../inew';
+import { IPost } from '../IPost';
 import { IUser } from '../iuser';
 
 @Injectable({
@@ -15,9 +15,9 @@ export class LocalStorageService implements ISourceData {
     this._localStorage = window.localStorage;
   }
 
-  public getPosts(): Observable<INew[]> {
+  public getPosts(): Observable<IPost[]> {
     return new Observable((subscriber) => {
-      let result: Array<INew> = [];
+      let result: Array<IPost> = [];
       const localStorageData = this._localStorage.getItem(
         this._keyPostsLocalStorage
       );
@@ -32,7 +32,7 @@ export class LocalStorageService implements ISourceData {
   }
 
   /** Сохраняет переданный массив постов в локальное хранилище браузера */
-  public savePosts(news: Array<INew>): void {
+  public savePosts(news: Array<IPost>): void {
     this._localStorage.setItem(
       this._keyPostsLocalStorage,
       JSON.stringify(news)

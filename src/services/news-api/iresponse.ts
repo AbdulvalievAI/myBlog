@@ -1,7 +1,7 @@
-import { INew } from '../inew';
+import { IPost } from '../IPost';
 
 export interface IResponse {
   status: string;
   totalResults: number;
-  articles: Array<INew>;
+  articles: Array<IPost>;
 }

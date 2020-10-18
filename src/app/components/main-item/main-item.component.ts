@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { INew } from '../../services/inew';
+import { IPost } from '../../../services/IPost';
 
 @Component({
   selector: 'app-main-item',
@@ -7,7 +7,7 @@ import { INew } from '../../services/inew';
   styleUrls: ['./main-item.component.scss'],
 })
 export class MainItemComponent {
-  @Input() newItem: INew;
+  @Input() post: IPost;
 
   public goToLink(url: string): void {
     window.open(url, '_blank');

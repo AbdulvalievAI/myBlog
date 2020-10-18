@@ -1,5 +1,5 @@
 <div class="header">
-  <h1 [routerLink]="">My Blog</h1>
+  <h1 [routerLink]="'main'">My Blog</h1>
   <div class="header__user">
     <p *ngIf="_sessionStorageService.getSession()" class="header__user-name">
       Hello {{ _sessionStorageService.getSession().login }}

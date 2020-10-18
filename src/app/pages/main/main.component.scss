@@ -1,4 +1,7 @@
 :host {
+  main {
+    padding-top: 32px;
+  }
   h2 {
     color: blue;
   }
@@ -12,7 +15,6 @@
     margin: 0;
     padding: 0;
     li {
-      padding-top: 32px;
       &:not(:first-child) {
         padding-top: 40px;
       }
