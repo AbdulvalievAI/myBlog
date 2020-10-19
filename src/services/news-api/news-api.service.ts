@@ -19,7 +19,6 @@ export class NewsApiService implements ISourceData {
   ) {}
   private _apiUrl = 'https://newsapi.org/v2/';
   private _apiKey = '44caf8fd958444179e57d926c439f559';
-  private _page = 1;
 
   private static generateId(
     title: IPost['title'],
@@ -28,8 +27,26 @@ export class NewsApiService implements ISourceData {
     return Md5.hashStr(`${title}_${date}`).toString();
   }
 
-  private getEverything(page: number, query): Observable<IPost[]> {
-    return this.getConfig('everything', `q=${query}&page=${page}`);
+  private getTopHeadlines(
+    page: number,
+    pageSize: number,
+    country: string
+  ): Observable<IPost[]> {
+    return this.getConfig(
+      'top-headlines',
+      `country=${country}&pageSize=${pageSize}&page=${page}`
+    );
+  }
+
+  private getEverything(
+    page: number,
+    pageSize: number,
+    query: string
+  ): Observable<IPost[]> {
+    return this.getConfig(
+      'everything',
+      `q=${query}&pageSize=${pageSize}&page=${page}`
+    );
   }
 
   private getConfig(method: string, filters: string): Observable<IPost[]> {
@@ -54,19 +71,21 @@ export class NewsApiService implements ISourceData {
       );
   }
 
-  public getPosts(): Observable<IPost[]> {
+  public getPosts(page: number, pageSize: number): Observable<IPost[]> {
     return new Observable((subscriber) => {
-      const config = this.getEverything(this._page, 'bitcoin');
+      // const config = this.getEverything(page, pageSize, 'bitcoin');
+      const config = this.getTopHeadlines(page, pageSize, 'us');
       config.subscribe({
         next: (posts) => {
           if (posts.length) {
             this._localStorageService.savePosts(posts);
-            this._page += 1;
           }
-          this._localStorageService.getPosts().subscribe((postsLocal) => {
-            subscriber.next(postsLocal);
-            subscriber.complete();
-          });
+          this._localStorageService
+            .getPosts(page, pageSize)
+            .subscribe((postsLocal) => {
+              subscriber.next(postsLocal);
+              subscriber.complete();
+            });
         },
         error: (err) => {
           subscriber.error(err);

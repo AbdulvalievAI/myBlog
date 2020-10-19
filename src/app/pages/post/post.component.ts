@@ -87,7 +87,12 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   public removePost(): void {
-    this._localStorageService.removePost(this.post.id);
-    this._router.navigateByUrl('/main');
+    const isDeleted = confirm(
+      'Are you sure that you want to remove this post?'
+    );
+    if (isDeleted) {
+      this._localStorageService.removePost(this.post.id);
+      this._router.navigateByUrl('/main');
+    }
   }
 }

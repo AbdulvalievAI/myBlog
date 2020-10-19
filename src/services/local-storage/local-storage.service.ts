@@ -30,8 +30,28 @@ export class LocalStorageService implements ISourceData {
     return result;
   }
 
+  /** Получение постов из локального хранилища по странично */
+  public getPosts(page: number, pageSize: number): Observable<IPost[]> {
+    return new Observable((subscriber) => {
+      let result: Array<IPost> = [];
+      const localStorageData = this._localStorage.getItem(
+        this._keyPostsLocalStorage
+      );
+      if (localStorageData) {
+        const postParse = JSON.parse(localStorageData) as POSTS_LOCAL_STORAGE;
+        result = this.postsMapToArray(postParse);
+        const end = page * pageSize;
+        const start = end - pageSize;
+        result = result.slice(start, end);
+      }
+
+      subscriber.next(result);
+      subscriber.complete();
+    });
+  }
+
   /** Получение всех постов из локального хранилища */
-  public getPosts(): Observable<IPost[]> {
+  private gatAllPosts(): Observable<IPost[]> {
     return new Observable((subscriber) => {
       let result: Array<IPost> = [];
       const localStorageData = this._localStorage.getItem(
@@ -41,6 +61,7 @@ export class LocalStorageService implements ISourceData {
         const postParse = JSON.parse(localStorageData) as POSTS_LOCAL_STORAGE;
         result = this.postsMapToArray(postParse);
       }
+
       subscriber.next(result);
       subscriber.complete();
     });
@@ -48,7 +69,7 @@ export class LocalStorageService implements ISourceData {
 
   /** Сохраняет переданный массив постов в локальное хранилище браузера */
   public savePosts(newPosts: Array<IPost>): void {
-    this.getPosts().subscribe((posts) => {
+    this.gatAllPosts().subscribe((posts) => {
       const resultPosts: Array<IPost> = [];
       if (posts && posts.length) {
         resultPosts.push(...posts);

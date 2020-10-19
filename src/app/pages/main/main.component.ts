@@ -5,6 +5,7 @@ import { ISourceData } from '../../../services/ISourceData';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
+/*import { LocalStorageService } from '../../../services/local-storage/local-storage.service';*/
 
 @Component({
   selector: 'app-main',
@@ -15,11 +16,14 @@ export class MainComponent implements OnInit, OnDestroy {
   private _isStopLoad: boolean;
   private _sourceDataService: ISourceData;
   private _sourceDataSub: Subscription;
+  private _page = 1;
+  private _pageSize = 5;
   public isLoad: boolean;
   public posts: Array<IPost> = [];
 
   constructor(
     sourceDataService: NewsApiService,
+    /*sourceDataService: LocalStorageService,*/
     private _router: Router,
     public _sessionStorageService: SessionStorageService
   ) {
@@ -47,22 +51,25 @@ export class MainComponent implements OnInit, OnDestroy {
 
   public getNews(): void {
     this.isLoad = true;
-    this._sourceDataSub = this._sourceDataService.getPosts().subscribe({
-      next: (data) => {
-        if (data && data.length) {
-          this.posts.push(...data);
-        } else {
+    this._sourceDataSub = this._sourceDataService
+      .getPosts(this._page, this._pageSize)
+      .subscribe({
+        next: (data) => {
+          if (data && data.length) {
+            this.posts.push(...data);
+            this._page += 1;
+          } else {
+            this._isStopLoad = true;
+          }
+          this.isLoad = false;
+        },
+        error: (err) => {
+          console.log(err);
+          console.error(err.error.message);
+          this.isLoad = false;
           this._isStopLoad = true;
-        }
-        this.isLoad = false;
-      },
-      error: (err) => {
-        console.log(err);
-        console.error(err.error.message);
-        this.isLoad = false;
-        this._isStopLoad = true;
-      },
-    });
+        },
+      });
   }
 
   public fabHandler(): void {
