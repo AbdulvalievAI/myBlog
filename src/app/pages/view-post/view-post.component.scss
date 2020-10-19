@@ -1,0 +1,21 @@
+@import "../../../variables";
+
+.view-post {
+  padding: 72px 16px 16px;
+  h2 {
+    margin: 0;
+  }
+  &__description {
+    margin-top: 64px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+  button {
+    margin-top: 40px;
+    width: 144px;
+  }
+  &__button {
+    display: flex;
+    justify-content: space-between;
+  }
+}

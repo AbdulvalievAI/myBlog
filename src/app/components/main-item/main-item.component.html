@@ -1,4 +1,4 @@
-<div class="main-item" (click)="goToLink(post.url)">
+<div class="main-item" [routerLink]="['/view-post', post.id]">
   <h3>{{ post.title }}</h3>
   <div class="main-item__content">
     <div class="main-item__description">

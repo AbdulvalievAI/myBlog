@@ -3,6 +3,8 @@ import { NewsApiService } from '../../../services/news-api/news-api.service';
 import { IPost } from '../../../services/IPost';
 import { ISourceData } from '../../../services/ISourceData';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 
 @Component({
   selector: 'app-main',
@@ -16,7 +18,11 @@ export class MainComponent implements OnInit, OnDestroy {
   public isLoad: boolean;
   public posts: Array<IPost> = [];
 
-  constructor(sourceDataService: NewsApiService) {
+  constructor(
+    sourceDataService: NewsApiService,
+    private _router: Router,
+    public _sessionStorageService: SessionStorageService
+  ) {
     this._sourceDataService = sourceDataService;
   }
 
@@ -57,5 +63,9 @@ export class MainComponent implements OnInit, OnDestroy {
         this._isStopLoad = true;
       },
     });
+  }
+
+  public fabHandler(): void {
+    this._router.navigateByUrl('/post');
   }
 }

@@ -70,3 +70,22 @@ input {
     border-color: red;
   }
 }
+textarea {
+  padding: 8px;
+  border-radius: 2px;
+  border: 1px solid #d0cbcb;
+  &:focus {
+    border-color: $primary;
+  }
+  &:invalid {
+    border-color: red;
+  }
+}
+.header-post {
+  font-size: 18px;
+  line-height: 25px;
+  color: #ffffff;
+  background-color: $primaryLight;
+  min-height: 80px;
+  padding: 8px 16px;
+}

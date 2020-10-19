@@ -1,0 +1,35 @@
+<div class="create-post content">
+  <span>TITLE:</span>
+  <form [formGroup]="postFG">
+    <label>
+      <input [formControlName]="'title'" type="text" />
+    </label>
+    <textarea rows="10" [formControlName]="'description'"></textarea>
+  </form>
+  <div class="create-post__buttons">
+    <button [routerLink]="'/main'" class="button-text">CANCEL</button>
+    <button
+      *ngIf="typeAction === 'create'"
+      [disabled]="!postFG.valid"
+      class="create-post__create-btn"
+      (click)="createPost()"
+    >
+      Add
+    </button>
+    <button
+      *ngIf="typeAction === 'edit'"
+      class="create-post__remove-button"
+      (click)="removePost()"
+    >
+      REMOVE
+    </button>
+    <button
+      *ngIf="typeAction === 'edit'"
+      [disabled]="!postFG.valid"
+      class="create-post__create-btn"
+      (click)="editPost()"
+    >
+      Save
+    </button>
+  </div>
+</div>

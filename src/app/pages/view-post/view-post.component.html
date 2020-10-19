@@ -1,0 +1,8 @@
+<div class="view-post content">
+  <h2 class="header-post">{{ post.title }}</h2>
+  <p class="view-post__description">{{ post.description }}</p>
+  <div class="view-post__button">
+    <button [routerLink]="'/main'">BACK</button>
+    <button *ngIf="isEdit()" [routerLink]="['/post', post.id]">EDIT</button>
+  </div>
+</div>

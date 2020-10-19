@@ -1,4 +1,8 @@
 <main>
+  <app-floating-action-button
+    *ngIf="_sessionStorageService.getSession()"
+    (clickBtn)="fabHandler()"
+  ></app-floating-action-button>
   <ul>
     <li *ngFor="let post of posts">
       <article>
