@@ -68,6 +68,9 @@ export class NewsApiService implements ISourceData {
             subscriber.complete();
           });
         },
+        error: (err) => {
+          subscriber.error(err);
+        },
       });
     });
   }
