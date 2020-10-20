@@ -14,7 +14,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 /** Сервия для работы с внешним API постов/новостей */
 export class NewsApiService implements ISourceData {
   constructor(
-    private httpClient: HttpClient,
+    private _httpClient: HttpClient,
     private _localStorageService: LocalStorageService
   ) {}
   private _apiUrl = 'https://newsapi.org/v2/';
@@ -50,7 +50,7 @@ export class NewsApiService implements ISourceData {
   }
 
   private getConfig(method: string, filters: string): Observable<IPost[]> {
-    return this.httpClient
+    return this._httpClient
       .get<IResponse>(
         `${this._apiUrl}${method}?apiKey=${this._apiKey}&${filters}`
       )

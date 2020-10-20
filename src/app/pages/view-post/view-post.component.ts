@@ -11,8 +11,8 @@ import { SessionStorageService } from '../../../services/session-storage/session
   styleUrls: ['./view-post.component.scss'],
 })
 export class ViewPostComponent implements OnInit, OnDestroy {
-  private id: string;
-  private routeSubscription: Subscription;
+  private _postId: string;
+  private _routeSubscription$: Subscription;
   public post: IPost;
 
   constructor(
@@ -21,20 +21,20 @@ export class ViewPostComponent implements OnInit, OnDestroy {
     private _localStorageService: LocalStorageService,
     private _sessionStorageService: SessionStorageService
   ) {
-    this.routeSubscription = _activatedRoute.params.subscribe(
-      (params) => (this.id = params.id)
+    this._routeSubscription$ = _activatedRoute.params.subscribe(
+      (params) => (this._postId = params.id)
     );
   }
 
   ngOnInit(): void {
-    this.post = this._localStorageService.getPostById(this.id);
+    this.post = this._localStorageService.getPostById(this._postId);
     if (!this.post) {
       this._router.navigateByUrl('/main');
     }
   }
 
   ngOnDestroy(): void {
-    this.routeSubscription.unsubscribe();
+    this._routeSubscription$.unsubscribe();
   }
 
   public isEdit(): boolean {

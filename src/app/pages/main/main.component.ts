@@ -15,7 +15,7 @@ import { UserService } from '../../../services/user/user.service';
 export class MainComponent implements OnInit, OnDestroy {
   private _isStopLoad: boolean;
   private _sourceDataService: ISourceData;
-  private _sourceDataSub: Subscription;
+  private _sourceDataSub$: Subscription;
   private _page = 1;
   private _pageSize = 5;
   public isLoad: boolean;
@@ -35,7 +35,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._sourceDataSub.unsubscribe();
+    this._sourceDataSub$.unsubscribe();
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -51,7 +51,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   public getNews(): void {
     this.isLoad = true;
-    this._sourceDataSub = this._sourceDataService
+    this._sourceDataSub$ = this._sourceDataService
       .getPosts(this._page, this._pageSize)
       .subscribe({
         next: (data) => {

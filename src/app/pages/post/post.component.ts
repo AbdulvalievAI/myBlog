@@ -14,9 +14,9 @@ import { Subscription } from 'rxjs';
 })
 export class PostComponent implements OnInit, OnDestroy {
   public postFG: FormGroup;
-  private routeSubscription: Subscription;
-  private postId: IPost['id'];
-  private post: IPost;
+  private _routeSubscription$: Subscription;
+  private _postId: IPost['id'];
+  private _post: IPost;
   public typeAction: 'create' | 'edit' = 'create';
 
   constructor(
@@ -26,14 +26,14 @@ export class PostComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute
   ) {
-    this.routeSubscription = _activatedRoute.params.subscribe(
-      (params) => (this.postId = params.id)
+    this._routeSubscription$ = _activatedRoute.params.subscribe(
+      (params) => (this._postId = params.id)
     );
   }
 
   ngOnInit(): void {
-    if (this.postId) {
-      const post = this._localStorageService.getPostById(this.postId);
+    if (this._postId) {
+      const post = this._localStorageService.getPostById(this._postId);
       if (!post || post.typeSource === 'api') {
         this._router.navigateByUrl('/main');
         return;
@@ -45,10 +45,10 @@ export class PostComponent implements OnInit, OnDestroy {
       }
 
       this.typeAction = 'edit';
-      this.post = post;
+      this._post = post;
       this.postFG = this._fb.group({
-        title: [this.post.title, Validators.required],
-        description: [this.post.description, Validators.required],
+        title: [this._post.title, Validators.required],
+        description: [this._post.description, Validators.required],
       });
     } else {
       this.postFG = this._fb.group({
@@ -73,7 +73,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   public editPost(): void {
     const post: IPost = {
-      ...this.post,
+      ...this._post,
       title: this.postFG.value.title,
       description: this.postFG.value.description,
       publishedAt: new Date().toISOString(),
@@ -83,7 +83,7 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.routeSubscription.unsubscribe();
+    this._routeSubscription$.unsubscribe();
   }
 
   public removePost(): void {
@@ -91,7 +91,7 @@ export class PostComponent implements OnInit, OnDestroy {
       'Are you sure that you want to remove this post?'
     );
     if (isDeleted) {
-      this._localStorageService.removePost(this.post.id);
+      this._localStorageService.removePost(this._post.id);
       this._router.navigateByUrl('/main');
     }
   }
