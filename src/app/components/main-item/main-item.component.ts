@@ -8,8 +8,4 @@ import { IPost } from '../../../services/IPost';
 })
 export class MainItemComponent {
   @Input() post: IPost;
-
-  public goToLink(url: string): void {
-    window.open(url, '_blank');
-  }
 }

@@ -19,7 +19,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   private subscriptions: Array<Subscription> = [];
 
   constructor(
-    public _modalService: ModalService,
+    public modalService: ModalService,
     private _fb: FormBuilder,
     private _userService: UserService
   ) {}
@@ -124,7 +124,7 @@ export class ModalComponent implements OnInit, OnDestroy {
         .login(this.loginFG.value.login, this.loginFG.value.password)
         .subscribe({
           next: () => {
-            this._modalService.showModal$.next(false);
+            this.modalService.showModal$.next(false);
           },
           error: (err) => {
             window.alert(err);
@@ -137,7 +137,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this._userService.registration(this.registrationFG.value).subscribe({
         next: () => {
-          this._modalService.showModal$.next(false);
+          this.modalService.showModal$.next(false);
         },
         error: (err) => {
           window.alert(err);

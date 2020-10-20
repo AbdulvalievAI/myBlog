@@ -19,7 +19,7 @@ export class ViewPostComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _localStorageService: LocalStorageService,
-    public _sessionStorageService: SessionStorageService
+    private _sessionStorageService: SessionStorageService
   ) {
     this.routeSubscription = _activatedRoute.params.subscribe(
       (params) => (this.id = params.id)

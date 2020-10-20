@@ -4,26 +4,43 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router,
+  CanLoad,
+  Route,
 } from '@angular/router';
-import { SessionStorageService } from '../services/session-storage/session-storage.service';
+import { Observable } from 'rxjs';
+import { UserService } from '../services/user/user.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  constructor(
-    private _sessionStorageService: SessionStorageService,
-    private _router: Router
-  ) {}
+export class AuthGuard implements CanActivate, CanLoad {
+  constructor(private _userService: UserService, private _router: Router) {}
 
   canActivate(
-    next: ActivatedRouteSnapshot,
+    router: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
-    const isAuth = !!this._sessionStorageService.getSession();
-    if (!isAuth) {
-      this._router.navigateByUrl('/main');
-    }
-    return isAuth;
+  ): Observable<boolean> {
+    return this.checkAccess(state.url);
+  }
+
+  canLoad(route: Route): Observable<boolean> {
+    return this.checkAccess(route.path);
+  }
+
+  private checkAccess(currentUrl: string): Observable<boolean> {
+    return this._userService.checkSessionUser().pipe(
+      map((isAuth: boolean) => {
+        const isMainPage: boolean = currentUrl.includes('main');
+        const isViewPostPage: boolean = currentUrl.includes('view-post');
+        if (isMainPage || isViewPostPage) {
+          return true;
+        }
+        if (!isAuth) {
+          this._router.navigateByUrl('/main');
+        }
+        return isAuth;
+      })
+    );
   }
 }

@@ -9,18 +9,16 @@ import { SessionStorageService } from '../../../services/session-storage/session
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Input() loginModal: ModalComponent;
 
   constructor(
-    public _userService: UserService,
-    public _modalService: ModalService,
-    public _sessionStorageService: SessionStorageService
+    public userService: UserService,
+    public modalService: ModalService,
+    public sessionStorageService: SessionStorageService
   ) {}
 
   public logout(): void {
-    this._userService.logout();
+    this.userService.logout();
   }
-
-  ngOnInit(): void {}
 }

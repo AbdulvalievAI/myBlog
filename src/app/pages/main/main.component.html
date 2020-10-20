@@ -1,6 +1,6 @@
 <main>
   <app-floating-action-button
-    *ngIf="_sessionStorageService.getSession()"
+    *ngIf="userService.checkSessionUser() | async"
     (clickBtn)="fabHandler()"
   ></app-floating-action-button>
   <ul>

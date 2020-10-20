@@ -1,16 +1,16 @@
 <div class="header">
   <h1 [routerLink]="'main'">My Blog</h1>
   <div class="header__user">
-    <p *ngIf="_sessionStorageService.getSession()" class="header__user-name">
-      Hello {{ _sessionStorageService.getSession().login }}
+    <p *ngIf="userService.checkSessionUser() | async" class="header__user-name">
+      Hello {{ sessionStorageService.getSession().login }}
     </p>
     <button
-      *ngIf="!_sessionStorageService.getSession()"
-      (click)="_modalService.showModal$.next(true)"
+      *ngIf="!(userService.checkSessionUser() | async)"
+      (click)="modalService.showModal$.next(true)"
     >
       Login
     </button>
-    <button *ngIf="_sessionStorageService.getSession()" (click)="logout()">
+    <button *ngIf="userService.checkSessionUser() | async" (click)="logout()">
       Logout
     </button>
   </div>

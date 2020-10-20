@@ -4,7 +4,7 @@ import { IPost } from '../../../services/IPost';
 import { ISourceData } from '../../../services/ISourceData';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
+import { UserService } from '../../../services/user/user.service';
 /*import { LocalStorageService } from '../../../services/local-storage/local-storage.service';*/
 
 @Component({
@@ -25,7 +25,7 @@ export class MainComponent implements OnInit, OnDestroy {
     sourceDataService: NewsApiService,
     /*sourceDataService: LocalStorageService,*/
     private _router: Router,
-    public _sessionStorageService: SessionStorageService
+    public userService: UserService
   ) {
     this._sourceDataService = sourceDataService;
   }

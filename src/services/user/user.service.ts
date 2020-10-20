@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Md5 } from 'ts-md5/dist/md5';
 import { IUser } from '../IUser';
 import { LocalStorageService } from '../local-storage/local-storage.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { SessionStorageService } from '../session-storage/session-storage.service';
 
 @Injectable({
@@ -58,5 +58,11 @@ export class UserService {
   /** Деавторизация пользователя */
   public logout(): void {
     this._sessionStorageService.clearSession();
+  }
+
+  /** Проверка авторизирован в данный момент пользователь */
+  public checkSessionUser(): Observable<boolean> {
+    const isAuth: boolean = !!this._sessionStorageService.getSession();
+    return of(isAuth);
   }
 }
