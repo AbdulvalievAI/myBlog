@@ -8,7 +8,7 @@ import { IPostsLocalStorage } from '../../interfaces/IPosts-local-storage';
 @Injectable({
   providedIn: 'root',
 })
-/** Севис для работы с локальным хранилещем браузера */
+/** Севис для работы с Local Storage */
 export class LocalStorageService implements ISourceData {
   private _localStorage: Storage;
   private _keyPostsLocalStorage = 'posts';
@@ -16,7 +16,7 @@ export class LocalStorageService implements ISourceData {
     this._localStorage = window.localStorage;
   }
 
-  /** Получение поста из локального хранилища по его id */
+  /** Получение поста из Local Storage по его id */
   public getPostById(id: IPost['id']): IPost {
     let result: IPost;
     const localStorageData = this._localStorage.getItem(
@@ -29,7 +29,7 @@ export class LocalStorageService implements ISourceData {
     return result;
   }
 
-  /** Получение постов из локального хранилища по странично */
+  /** Получение постов из Local Storage по странично */
   public getPosts(page: number, pageSize: number): Observable<IPost[]> {
     return new Observable((subscriber) => {
       let result: Array<IPost> = [];
@@ -49,7 +49,7 @@ export class LocalStorageService implements ISourceData {
     });
   }
 
-  /** Получение всех постов из локального хранилища */
+  /** Получение всех постов из Local Storage */
   private gatAllPosts(): Observable<IPost[]> {
     return new Observable((subscriber) => {
       let result: Array<IPost> = [];
@@ -66,7 +66,7 @@ export class LocalStorageService implements ISourceData {
     });
   }
 
-  /** Сохраняет переданный массив постов в локальное хранилище браузера */
+  /** Сохраняет переданный массив постов в Local Storage */
   public savePosts(newPosts: Array<IPost>): void {
     this.gatAllPosts().subscribe((posts) => {
       const resultPosts: Array<IPost> = [];
@@ -81,7 +81,7 @@ export class LocalStorageService implements ISourceData {
     });
   }
 
-  /** Удаление поста из локального хранилиша браузера */
+  /** Удаление поста из Local Storage */
   public removePost(id: IPost['id']): void {
     const localStorageData = this._localStorage.getItem(
       this._keyPostsLocalStorage
@@ -98,7 +98,7 @@ export class LocalStorageService implements ISourceData {
     }
   }
 
-  /** Сохранение данных пользователя в локальное хранилище */
+  /** Сохранение данных пользователя в Local Storage */
   public saveUser(user: IUser): void {
     this._localStorage.setItem(`user-${user.login}`, JSON.stringify(user));
   }
