@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
-import { IPost } from '../../../services/IPost';
+import { IPost } from '../../../interfaces/IPost';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 
 @Component({

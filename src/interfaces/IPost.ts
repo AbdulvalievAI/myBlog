@@ -1,4 +1,4 @@
-/** Описание данных поста/новости */
+/** Описание данных поста */
 export interface IPost {
   id: string;
   typeSource: 'local' | 'api';

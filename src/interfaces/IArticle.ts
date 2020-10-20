@@ -1,3 +1,4 @@
+/** Формат стуктуры поста api */
 export interface IArticle {
   source: {
     id: string;

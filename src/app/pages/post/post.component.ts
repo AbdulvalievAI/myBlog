@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as uuid from 'uuid';
-import { IPost } from '../../../services/IPost';
+import { IPost } from '../../../interfaces/IPost';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';

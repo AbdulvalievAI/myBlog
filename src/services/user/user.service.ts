@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Md5 } from 'ts-md5/dist/md5';
-import { IUser } from '../IUser';
+import { IUser } from '../../interfaces/IUser';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Observable, of } from 'rxjs';
 import { SessionStorageService } from '../session-storage/session-storage.service';

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ISourceData } from '../ISourceData';
+import { ISourceData } from '../../interfaces/ISourceData';
 import { Observable } from 'rxjs';
-import { IPost } from '../IPost';
-import { IUser } from '../IUser';
-
-type POSTS_LOCAL_STORAGE = { [key: string]: IPost };
+import { IPost } from '../../interfaces/IPost';
+import { IUser } from '../../interfaces/IUser';
+import { IPostsLocalStorage } from '../../interfaces/IPosts-local-storage';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +23,7 @@ export class LocalStorageService implements ISourceData {
       this._keyPostsLocalStorage
     );
     if (localStorageData) {
-      const postParse = JSON.parse(localStorageData) as POSTS_LOCAL_STORAGE;
+      const postParse = JSON.parse(localStorageData) as IPostsLocalStorage;
       result = postParse[id];
     }
     return result;
@@ -38,7 +37,7 @@ export class LocalStorageService implements ISourceData {
         this._keyPostsLocalStorage
       );
       if (localStorageData) {
-        const postParse = JSON.parse(localStorageData) as POSTS_LOCAL_STORAGE;
+        const postParse = JSON.parse(localStorageData) as IPostsLocalStorage;
         result = this.postsMapToArray(postParse);
         const end = page * pageSize;
         const start = end - pageSize;
@@ -58,7 +57,7 @@ export class LocalStorageService implements ISourceData {
         this._keyPostsLocalStorage
       );
       if (localStorageData) {
-        const postParse = JSON.parse(localStorageData) as POSTS_LOCAL_STORAGE;
+        const postParse = JSON.parse(localStorageData) as IPostsLocalStorage;
         result = this.postsMapToArray(postParse);
       }
 
@@ -114,11 +113,11 @@ export class LocalStorageService implements ISourceData {
     return result;
   }
 
-  private postsMapToArray(objectPosts: POSTS_LOCAL_STORAGE): Array<IPost> {
+  private postsMapToArray(objectPosts: IPostsLocalStorage): Array<IPost> {
     return Object.keys(objectPosts).map((key) => objectPosts[key]);
   }
 
-  private postsMapToObject(arrayPosts: Array<IPost>): POSTS_LOCAL_STORAGE {
+  private postsMapToObject(arrayPosts: Array<IPost>): IPostsLocalStorage {
     const resultObj = {};
     arrayPosts.forEach((post) => {
       resultObj[post.id] = post;

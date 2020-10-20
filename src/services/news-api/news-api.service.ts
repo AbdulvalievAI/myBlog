@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IPost } from '../IPost';
-import { IResponse } from './IResponse';
-import { ISourceData } from '../ISourceData';
+import { IPost } from '../../interfaces/IPost';
+import { IResponse } from '../../interfaces/IResponse';
+import { ISourceData } from '../../interfaces/ISourceData';
 import { Md5 } from 'ts-md5/dist/md5';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 

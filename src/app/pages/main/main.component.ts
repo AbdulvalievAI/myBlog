@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NewsApiService } from '../../../services/news-api/news-api.service';
-import { IPost } from '../../../services/IPost';
-import { ISourceData } from '../../../services/ISourceData';
+import { IPost } from '../../../interfaces/IPost';
+import { ISourceData } from '../../../interfaces/ISourceData';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user/user.service';
