@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Login</h2>
+<mat-dialog-content>
+  <form [formGroup]="loginFG">
+    <mat-form-field appearance="outline">
+      <mat-label>Login</mat-label>
+      <label>
+        <input [formControlName]="'login'" matInput type="text" />
+      </label>
+      <mat-error *ngIf="loginErrors['login']">
+        {{ loginErrors["login"] }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <label>
+        <input [formControlName]="'password'" matInput type="password" />
+      </label>
+      <mat-error *ngIf="loginErrors['password']">
+        {{ loginErrors["password"] }}
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="btnRegistrationHandler()">
+    REGISTRATION
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    [disabled]="!loginFG.valid"
+    (click)="loginHandler()"
+  >
+    Sign in
+  </button>
+</mat-dialog-actions>

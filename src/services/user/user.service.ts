@@ -4,6 +4,8 @@ import { IUser } from '../../interfaces/IUser';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Observable, of } from 'rxjs';
 import { SessionStorageService } from '../session-storage/session-storage.service';
+import { Router } from '@angular/router';
+import { NotifierService } from '../notifier/notifier.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,9 @@ import { SessionStorageService } from '../session-storage/session-storage.servic
 export class UserService {
   constructor(
     private _localStorageService: LocalStorageService,
-    private _sessionStorageService: SessionStorageService
+    private _sessionStorageService: SessionStorageService,
+    private _router: Router,
+    private _notifierService: NotifierService
   ) {}
 
   private static passToHash(password: string): string {
@@ -28,6 +32,7 @@ export class UserService {
         if (hashPass === user.password) {
           subscriber.next(user);
           this._sessionStorageService.saveSession(user);
+          this._notifierService.snackBar('default', `Hello ${user.login}!`);
           subscriber.complete();
           return;
         }
@@ -48,6 +53,7 @@ export class UserService {
         this._localStorageService.saveUser(user);
         this._sessionStorageService.saveSession(user);
         subscriber.next(user);
+        this._notifierService.snackBar('default', `Welcome ${user.login}!`);
         subscriber.complete();
         return;
       }
@@ -58,6 +64,10 @@ export class UserService {
   /** Деавторизация пользователя */
   public logout(): void {
     this._sessionStorageService.clearSession();
+    if (this._router.url.includes('/post/')) {
+      this._router.navigateByUrl('/main');
+    }
+    this._notifierService.snackBar('default', 'Logout success. See you later!');
   }
 
   /** Проверка авторизирован в данный момент пользователь */

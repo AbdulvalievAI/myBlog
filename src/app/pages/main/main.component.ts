@@ -1,11 +1,18 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { NewsApiService } from '../../../services/news-api/news-api.service';
+import {
+  Component,
+  ErrorHandler,
+  HostListener,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+/*import { NewsApiService } from '../../../services/news-api/news-api.service';*/
 import { IPost } from '../../../interfaces/IPost';
 import { ISourceData } from '../../../interfaces/ISourceData';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user/user.service';
-/*import { LocalStorageService } from '../../../services/local-storage/local-storage.service';*/
+import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -15,17 +22,18 @@ import { UserService } from '../../../services/user/user.service';
 export class MainComponent implements OnInit, OnDestroy {
   private _isStopLoad: boolean;
   private _sourceDataService: ISourceData;
-  private _sourceDataSub$: Subscription;
   private _page = 1;
   private _pageSize = 5;
   public isLoad: boolean;
   public posts: Array<IPost> = [];
+  private _isUnsubscribe = false;
 
   constructor(
-    sourceDataService: NewsApiService,
-    /*sourceDataService: LocalStorageService,*/
+    /*sourceDataService: NewsApiService,*/
+    sourceDataService: LocalStorageService,
     private _router: Router,
-    public userService: UserService
+    public userService: UserService,
+    private _errorHandler: ErrorHandler
   ) {
     this._sourceDataService = sourceDataService;
   }
@@ -35,15 +43,17 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._sourceDataSub$.unsubscribe();
+    this._isUnsubscribe = true;
   }
 
   @HostListener('window:scroll', ['$event'])
   onScroll(): void {
+    const endReachedThreshold = 700;
     if (
       !this._isStopLoad &&
       !this.isLoad &&
-      window.innerHeight + 700 + window.scrollY >= document.body.offsetHeight
+      window.innerHeight + endReachedThreshold + window.scrollY >=
+        document.body.scrollHeight
     ) {
       this.getNews();
     }
@@ -51,8 +61,9 @@ export class MainComponent implements OnInit, OnDestroy {
 
   public getNews(): void {
     this.isLoad = true;
-    this._sourceDataSub$ = this._sourceDataService
+    this._sourceDataService
       .getPosts(this._page, this._pageSize)
+      .pipe(takeWhile(() => !this._isUnsubscribe))
       .subscribe({
         next: (data) => {
           if (data && data.length) {
@@ -63,9 +74,8 @@ export class MainComponent implements OnInit, OnDestroy {
           }
           this.isLoad = false;
         },
-        error: (err) => {
-          console.log(err);
-          console.error(err.error.message);
+        error: (err: HttpErrorResponse) => {
+          this._errorHandler.handleError(err.error);
           this.isLoad = false;
           this._isStopLoad = true;
         },

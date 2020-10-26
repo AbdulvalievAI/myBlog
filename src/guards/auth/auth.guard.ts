@@ -8,7 +8,7 @@ import {
   Route,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from '../services/user/user.service';
+import { UserService } from '../../services/user/user.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({

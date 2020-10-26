@@ -1,17 +1,21 @@
-<div class="header">
+<mat-toolbar color="primary">
   <h1 [routerLink]="'main'">My Blog</h1>
-  <div class="header__user">
-    <p *ngIf="userService.checkSessionUser() | async" class="header__user-name">
-      Hello {{ sessionStorageService.getSession().login }}
-    </p>
-    <button
-      *ngIf="!(userService.checkSessionUser() | async)"
-      (click)="modalService.showModal$.next(true)"
-    >
-      Login
-    </button>
-    <button *ngIf="userService.checkSessionUser() | async" (click)="logout()">
-      Logout
-    </button>
-  </div>
-</div>
+  <span style="margin-left: auto"></span>
+  <span *ngIf="userService.checkSessionUser() | async">
+    {{ sessionStorageService.getSession().login }}
+  </span>
+  <button
+    *ngIf="userService.checkSessionUser() | async"
+    mat-icon-button
+    (click)="logout()"
+  >
+    <mat-icon>login</mat-icon>
+  </button>
+  <button
+    *ngIf="(userService.checkSessionUser() | async) === false"
+    mat-icon-button
+    (click)="personBtnHandler()"
+  >
+    <mat-icon>person_outline</mat-icon>
+  </button>
+</mat-toolbar>

@@ -1,32 +1,21 @@
 :host {
-  main {
-    padding-top: 32px;
-  }
   h2 {
     color: blue;
   }
   button {
-    display: block;
-    margin: 0 auto 64px auto;
-    width: 320px;
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 100;
   }
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    li {
-      &:not(:first-child) {
-        padding-top: 40px;
-      }
-      &:last-child {
-        padding-bottom: 40px;
-      }
+  li {
+    &:not(:first-child) {
+      padding-top: 24px;
     }
   }
-  img {
-    display: block;
-    margin: 0 auto;
+  .progress {
+    display: flex;
+    justify-content: center;
     padding: 16px 0;
-    width: 32px;
   }
 }

@@ -1,35 +1,58 @@
-<div class="create-post content">
-  <span>TITLE:</span>
+<main>
   <form [formGroup]="postFG">
-    <label>
-      <input [formControlName]="'title'" type="text" />
-    </label>
-    <textarea rows="10" [formControlName]="'description'"></textarea>
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <label>
+        <input [formControlName]="'title'" matInput type="text" />
+      </label>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <label>
+        <textarea
+          [formControlName]="'description'"
+          rows="5"
+          matInput
+        ></textarea>
+      </label>
+    </mat-form-field>
   </form>
-  <div class="create-post__buttons">
-    <button [routerLink]="'/main'" class="button-text">CANCEL</button>
+  <div class="buttons">
+    <div>
+      <button
+        [style.marginRight]="'16px'"
+        mat-button
+        color="primary"
+        [routerLink]="'/main'"
+      >
+        CANCEL
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="typeAction === 'create'"
+        [disabled]="!postFG.valid"
+        (click)="createPost()"
+      >
+        Add
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="typeAction === 'edit'"
+        [disabled]="!postFG.valid"
+        (click)="editPost()"
+      >
+        Save
+      </button>
+    </div>
     <button
-      *ngIf="typeAction === 'create'"
-      [disabled]="!postFG.valid"
-      class="create-post__create-btn"
-      (click)="createPost()"
-    >
-      Add
-    </button>
-    <button
+      mat-raised-button
+      color="warn"
       *ngIf="typeAction === 'edit'"
-      class="create-post__remove-button"
       (click)="removePost()"
     >
       REMOVE
     </button>
-    <button
-      *ngIf="typeAction === 'edit'"
-      [disabled]="!postFG.valid"
-      class="create-post__create-btn"
-      (click)="editPost()"
-    >
-      Save
-    </button>
   </div>
-</div>
+</main>

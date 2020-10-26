@@ -5,7 +5,8 @@ import { IPost } from '../../../interfaces/IPost';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { NotifierService } from '../../../services/notifier/notifier.service';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post',
@@ -14,21 +15,22 @@ import { Subscription } from 'rxjs';
 })
 export class PostComponent implements OnInit, OnDestroy {
   public postFG: FormGroup;
-  private _routeSubscription$: Subscription;
   private _postId: IPost['id'];
   private _post: IPost;
   public typeAction: 'create' | 'edit' = 'create';
+  private _isUnsubscribe = false;
 
   constructor(
     private _fb: FormBuilder,
     private _sessionStorageService: SessionStorageService,
     private _localStorageService: LocalStorageService,
     private _router: Router,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _notifierService: NotifierService
   ) {
-    this._routeSubscription$ = _activatedRoute.params.subscribe(
-      (params) => (this._postId = params.id)
-    );
+    _activatedRoute.params
+      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .subscribe((params) => (this._postId = params.id));
   }
 
   ngOnInit(): void {
@@ -58,6 +60,10 @@ export class PostComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngOnDestroy(): void {
+    this._isUnsubscribe = true;
+  }
+
   public createPost(): void {
     const post: IPost = {
       id: uuid.v4(),
@@ -68,6 +74,7 @@ export class PostComponent implements OnInit, OnDestroy {
       publishedAt: new Date().toISOString(),
     };
     this._localStorageService.savePosts([post]);
+    this._notifierService.snackBar('default', 'Post created successfully!');
     this._router.navigateByUrl('/main');
   }
 
@@ -79,11 +86,8 @@ export class PostComponent implements OnInit, OnDestroy {
       publishedAt: new Date().toISOString(),
     };
     this._localStorageService.savePosts([post]);
+    this._notifierService.snackBar('default', 'Post saved successfully!');
     this._router.navigateByUrl('/main');
-  }
-
-  ngOnDestroy(): void {
-    this._routeSubscription$.unsubscribe();
   }
 
   public removePost(): void {
@@ -92,6 +96,7 @@ export class PostComponent implements OnInit, OnDestroy {
     );
     if (isDeleted) {
       this._localStorageService.removePost(this._post.id);
+      this._notifierService.snackBar('default', 'Post successfully deleted!');
       this._router.navigateByUrl('/main');
     }
   }

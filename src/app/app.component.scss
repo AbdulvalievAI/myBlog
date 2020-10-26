@@ -1,8 +1,10 @@
-@import "src/variables";
-
 .app-content {
-  margin-top: $headerHeight;
-  max-width: $width;
+  margin-top: 64px;
+  padding: 16px;
+  @media (max-width: 599px) {
+    margin-top: 56px;
+  }
+  max-width: 750px;
   margin-left: auto;
   margin-right: auto;
 }

@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ModalComponent } from '../modal/modal.component';
+import { Component } from '@angular/core';
 import { UserService } from '../../../services/user/user.service';
-import { ModalService } from '../../../services/modal/modal.service';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
+import { LoginFormDialogComponent } from '../dialogs/login-form-dialog/login-form-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-header',
@@ -10,15 +10,19 @@ import { SessionStorageService } from '../../../services/session-storage/session
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Input() loginModal: ModalComponent;
-
   constructor(
     public userService: UserService,
-    public modalService: ModalService,
-    public sessionStorageService: SessionStorageService
+    public sessionStorageService: SessionStorageService,
+    private _dialog: MatDialog
   ) {}
 
   public logout(): void {
     this.userService.logout();
+  }
+
+  public personBtnHandler(): void {
+    this._dialog.open(LoginFormDialogComponent, {
+      width: '500px',
+    });
   }
 }

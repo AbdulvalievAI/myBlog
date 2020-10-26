@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { IPost } from '../../../interfaces/IPost';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-post',
@@ -12,8 +12,8 @@ import { SessionStorageService } from '../../../services/session-storage/session
 })
 export class ViewPostComponent implements OnInit, OnDestroy {
   private _postId: string;
-  private _routeSubscription$: Subscription;
   public post: IPost;
+  private _isUnsubscribe = false;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -21,9 +21,9 @@ export class ViewPostComponent implements OnInit, OnDestroy {
     private _localStorageService: LocalStorageService,
     private _sessionStorageService: SessionStorageService
   ) {
-    this._routeSubscription$ = _activatedRoute.params.subscribe(
-      (params) => (this._postId = params.id)
-    );
+    _activatedRoute.params
+      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .subscribe((params) => (this._postId = params.id));
   }
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class ViewPostComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._routeSubscription$.unsubscribe();
+    this._isUnsubscribe = true;
   }
 
   public isEdit(): boolean {

@@ -1,16 +1,12 @@
-<div class="main-item" [routerLink]="['/view-post', post.id]">
-  <h3 class="header-post">{{ post.title }}</h3>
-  <div class="main-item__content">
-    <div class="main-item__description">
-      <p class="main-item__text truncate-text">{{ post.description }}</p>
-    </div>
-    <div class="main-item__info">
-      <p class="main-item__source main-item__text--truncate">
-        {{ post.author }}
-      </p>
-      <time class="main-item__date main-item__text">{{
-        post.publishedAt | date
-      }}</time>
-    </div>
-  </div>
-</div>
+<mat-card matRipple [routerLink]="['/view-post', post.id]">
+  <mat-card-header>
+    <mat-card-title
+      ><h2>{{ post.title }}</h2></mat-card-title
+    >
+  </mat-card-header>
+  <mat-card-content>{{ post.description }} </mat-card-content>
+  <mat-card-footer>
+    <address>{{ post.author }}</address>
+    <time>{{ post.publishedAt | date }}</time>
+  </mat-card-footer>
+</mat-card>

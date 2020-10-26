@@ -1,91 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import "src/variables";
 
-* {
-  font-family: Open Sans, sans-serif;
-  color: #685b5b;
-  &:focus {
-    outline: none;
-  }
+*:focus {
+  outline: none;
+}
+html,
+body {
+  height: 100%;
 }
 body {
   margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-button {
-  background-color: $primary;
-  height: 40px;
-  border: none;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 2px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  padding: 2px;
-  cursor: pointer;
-  &:hover {
-    background-color: desaturate($primary, 15%);
-  }
-  &:active {
-    background-color: desaturate($primary, 30%);
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-  }
-  &:disabled {
-    background-color: lightgrey;
-  }
-}
-.button-text {
-  background-color: transparent;
-  border: none;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 25px;
-  box-shadow: none;
-  color: $primary;
-  &:hover {
-    color: desaturate($primary, 15%);
-    background-color: transparent;
-  }
-  &:active {
-    color: desaturate($primary, 30%);
-    background-color: transparent;
-    box-shadow: none;
-  }
-  &:disabled {
-    background-color: transparent;
-    color: gray;
-  }
-}
-input {
-  height: 40px;
-  border-radius: 2px;
-  background: #ffffff;
-  border: 1px solid #d0cbcb;
-  box-sizing: border-box;
-  padding: 8px;
-  &:focus {
-    border-color: $primary;
-  }
-  &:invalid {
-    border-color: red;
-  }
-}
-textarea {
-  padding: 8px;
-  border-radius: 2px;
-  border: 1px solid #d0cbcb;
-  &:focus {
-    border-color: $primary;
-  }
-  &:invalid {
-    border-color: red;
-  }
-}
-.header-post {
-  font-size: 18px;
-  line-height: 25px;
-  color: #ffffff;
-  background-color: $primaryLight;
-  min-height: 80px;
-  padding: 8px 16px;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }

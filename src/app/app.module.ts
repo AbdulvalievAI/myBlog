@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
+import { MaterialModule } from 'src/material/material.module';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './pages/main/main.component';
@@ -12,9 +14,10 @@ import { PostComponent } from './pages/post/post.component';
 
 import { HeaderComponent } from './components/header/header.component';
 import { MainItemComponent } from './components/main-item/main-item.component';
-import { ModalComponent } from './components/modal/modal.component';
-import { FormInputComponent } from './components/form-input/form-input.component';
-import { FloatingActionButtonComponent } from './components/floating-action-button/floating-action-button.component';
+import { LoginFormDialogComponent } from './components/dialogs/login-form-dialog/login-form-dialog.component';
+import { RegistrationFormDialogComponent } from './components/dialogs/registration-form-dialog/registration-form-dialog.component';
+
+import { AppErrors } from './app.errors';
 
 @NgModule({
   declarations: [
@@ -22,19 +25,26 @@ import { FloatingActionButtonComponent } from './components/floating-action-butt
     HeaderComponent,
     MainComponent,
     MainItemComponent,
-    ModalComponent,
-    FormInputComponent,
     ViewPostComponent,
     PostComponent,
-    FloatingActionButtonComponent,
+    LoginFormDialogComponent,
+    RegistrationFormDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
-  providers: [HttpClientModule, FormBuilder],
+  providers: [
+    FormBuilder,
+    {
+      provide: ErrorHandler,
+      useClass: AppErrors,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

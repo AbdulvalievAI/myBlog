@@ -1,37 +1,7 @@
 @import "../../../variables";
 
-.header {
+:host mat-toolbar {
   position: fixed;
-  width: 100%;
-  background-color: $blue;
-  height: $headerHeight;
-  display: flex;
-  align-items: center;
   top: 0;
-  justify-content: space-between;
-  h1 {
-    color: white;
-    font-size: 24px;
-    line-height: 33px;
-    align-items: center;
-    text-align: center;
-    margin: 0;
-    width: 250px;
-    cursor: pointer;
-  }
-  &__user {
-    margin: 16px;
-    display: flex;
-    align-items: center;
-  }
-  &__user-name {
-    color: $primary;
-    margin: 0 32px 0;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 25px;
-  }
-  button {
-    width: 144px;
-  }
+  z-index: 100;
 }

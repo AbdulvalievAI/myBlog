@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Registration</h2>
+<mat-dialog-content>
+  <form [formGroup]="registrationFG">
+    <mat-form-field appearance="outline">
+      <mat-label>Login</mat-label>
+      <label>
+        <input [formControlName]="'login'" matInput type="text" />
+      </label>
+      <mat-error *ngIf="registrationErrors['login']">
+        {{ registrationErrors["login"] }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <label>
+        <input [formControlName]="'password'" matInput type="password" />
+      </label>
+      <mat-error *ngIf="registrationErrors['password']">
+        {{ registrationErrors["password"] }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Confirm Password</mat-label>
+      <label>
+        <input [formControlName]="'passwordConfirm'" matInput type="password" />
+      </label>
+      <mat-error *ngIf="registrationErrors['passwordConfirm']">
+        {{ registrationErrors["passwordConfirm"] }}
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    mat-raised-button
+    color="accent"
+    [disabled]="!registrationFG.valid"
+    (click)="registrationHandler()"
+  >
+    Register
+  </button>
+</mat-dialog-actions>

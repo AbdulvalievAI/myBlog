@@ -1,8 +1,12 @@
 <main>
-  <app-floating-action-button
+  <button
+    mat-fab
+    color="primary"
     *ngIf="userService.checkSessionUser() | async"
-    (clickBtn)="fabHandler()"
-  ></app-floating-action-button>
+    (click)="fabHandler()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
   <ul>
     <li *ngFor="let post of posts">
       <article>
@@ -10,8 +14,7 @@
       </article>
     </li>
   </ul>
-  <img *ngIf="isLoad" src="assets/spinner.svg" alt="Loading..." />
-  <button *ngIf="false" [disabled]="isLoad" (click)="getNews()">
-    Load next articles
-  </button>
+  <div *ngIf="isLoad" class="progress">
+    <mat-spinner [diameter]="48"></mat-spinner>
+  </div>
 </main>

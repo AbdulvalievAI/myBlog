@@ -1,40 +1,25 @@
 @import "../../../variables";
+%field-text {
+  font-size: 18px;
+  line-height: 25px;
+}
 
-.create-post {
-  padding: 72px 16px 16px;
-  span {
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 25px;
-    color: $primary;
-  }
+:host {
   form {
     width: 100%;
     display: flex;
     flex-direction: column;
   }
   input {
-    width: 100%;
-    margin-top: 16px;
     font-weight: bold;
-    font-size: 18px;
-    line-height: 25px;
+    @extend %field-text;
   }
   textarea {
-    margin-top: 80px;
-    font-size: 18px;
-    line-height: 25px;
+    @extend %field-text;
   }
-  &__buttons {
+  .buttons {
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
-  }
-  &__create-btn {
-    width: 152px;
-  }
-  &__remove-button {
-    padding: 0 16px;
-    background-color: darkred;
   }
 }

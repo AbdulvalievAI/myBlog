@@ -1,8 +1,21 @@
-<div class="view-post content">
-  <h2 class="header-post">{{ post.title }}</h2>
-  <p class="view-post__description">{{ post.description }}</p>
-  <div class="view-post__button">
-    <button [routerLink]="'/main'">BACK</button>
-    <button *ngIf="isEdit()" [routerLink]="['/post', post.id]">EDIT</button>
-  </div>
-</div>
+<main>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title
+        ><h2>{{ post.title }}</h2></mat-card-title
+      ></mat-card-header
+    >
+    <mat-card-content>{{ post.description }}</mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" [routerLink]="'/main'">BACK</button>
+      <button
+        *ngIf="isEdit()"
+        mat-raised-button
+        color="accent"
+        [routerLink]="['/post', post.id]"
+      >
+        EDIT
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</main>
