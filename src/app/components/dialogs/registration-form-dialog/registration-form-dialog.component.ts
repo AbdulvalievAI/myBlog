@@ -4,7 +4,8 @@ import { UserService } from '../../../../services/user/user.service';
 import { ValidatorsService } from '../../../../services/validators/validators.service';
 import { takeWhile } from 'rxjs/operators';
 import { NotifierService } from '../../../../services/notifier/notifier.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { IDialogCloseResponse } from '../../../../interfaces/IDialogCloseResponse';
 
 @Component({
   selector: 'app-registration-form-dialog',
@@ -20,8 +21,11 @@ export class RegistrationFormDialogComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _userService: UserService,
     private _validatorsService: ValidatorsService,
-    private _dialog: MatDialog,
-    private _notifierService: NotifierService
+    private _notifierService: NotifierService,
+    private _dialogRef: MatDialogRef<
+      RegistrationFormDialogComponent,
+      IDialogCloseResponse
+    >
   ) {}
 
   ngOnInit(): void {
@@ -57,11 +61,15 @@ export class RegistrationFormDialogComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => !this._isUnsubscribe))
       .subscribe({
         next: () => {
-          this._dialog.closeAll();
+          this._dialogRef.close();
         },
         error: (err) => {
           this._notifierService.snackBar('error', err.message);
         },
       });
+  }
+
+  public backHandler(): void {
+    this._dialogRef.close({ open: 'login-form-dialog' });
   }
 }

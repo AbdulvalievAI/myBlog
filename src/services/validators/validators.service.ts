@@ -5,18 +5,21 @@ import { FormGroup, Validators } from '@angular/forms';
   providedIn: 'root',
 })
 export class ValidatorsService {
+  /** Валидаторы поля пароля */
   public password: Validators[] = [
     Validators.required,
     Validators.minLength(6),
     Validators.maxLength(15),
   ];
 
+  /** Валидаторы поля логина */
   public login: Validators[] = [
     Validators.required,
     Validators.minLength(3),
     Validators.maxLength(20),
   ];
 
+  /** Получение тестовой ошибки валидаторов */
   public static getErrorMessage(keyError: string, valueError: any): string {
     switch (keyError) {
       case 'required':
@@ -32,6 +35,7 @@ export class ValidatorsService {
     }
   }
 
+  /** Валидатр сравнения значений двух FormControl в formGroup */
   public mustMatchValidator(
     controlName: string,
     matchingControlName: string
@@ -50,6 +54,7 @@ export class ValidatorsService {
     };
   }
 
+  /** Метод генерации сообщений с ошибками у FormGroup */
   public getMessagesErrors(formGroup: FormGroup): { [key: string]: string } {
     const result: { [key: string]: string } = {};
     Object.keys(formGroup.controls).forEach((nameControl) => {

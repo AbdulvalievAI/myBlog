@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-/*import { NewsApiService } from '../../../services/news-api/news-api.service';*/
+/*import { NewsApiService } from 'src/services/news-api/news-api.service';*/
 import { IPost } from '../../../interfaces/IPost';
 import { ISourceData } from '../../../interfaces/ISourceData';
 import { Router } from '@angular/router';
@@ -29,6 +29,7 @@ export class MainComponent implements OnInit, OnDestroy {
   private _isUnsubscribe = false;
 
   constructor(
+    // TODO переделать на сервис обёртку для переключения
     /*sourceDataService: NewsApiService,*/
     sourceDataService: LocalStorageService,
     private _router: Router,
@@ -46,6 +47,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this._isUnsubscribe = true;
   }
 
+  // TODO переделать на material scroll
   @HostListener('window:scroll', ['$event'])
   onScroll(): void {
     const endReachedThreshold = 700;

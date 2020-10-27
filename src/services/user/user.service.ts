@@ -19,8 +19,9 @@ export class UserService {
     private _notifierService: NotifierService
   ) {}
 
-  private static passToHash(password: string): string {
-    return Md5.hashStr(password).toString();
+  /** Метод для трансформации строки Md5 */
+  private static strToHash(value: string): string {
+    return Md5.hashStr(value).toString();
   }
 
   /** Метод авторизации пользователя */
@@ -28,7 +29,7 @@ export class UserService {
     return new Observable<IUser>((subscriber) => {
       const user = this._localStorageService.getUser(login);
       if (user) {
-        const hashPass = UserService.passToHash(password);
+        const hashPass = UserService.strToHash(password);
         if (hashPass === user.password) {
           subscriber.next(user);
           this._sessionStorageService.saveSession(user);
@@ -49,7 +50,7 @@ export class UserService {
       );
       if (!localStorageData) {
         const user = new Object(userData) as IUser;
-        user.password = UserService.passToHash(userData.password);
+        user.password = UserService.strToHash(userData.password);
         this._localStorageService.saveUser(user);
         this._sessionStorageService.saveSession(user);
         subscriber.next(user);
@@ -64,6 +65,7 @@ export class UserService {
   /** Деавторизация пользователя */
   public logout(): void {
     this._sessionStorageService.clearSession();
+    // TODO сделать выброс на экран Main через AuthGuard
     if (this._router.url.includes('/post/')) {
       this._router.navigateByUrl('/main');
     }
@@ -72,6 +74,7 @@ export class UserService {
 
   /** Проверка авторизирован в данный момент пользователь */
   public checkSessionUser(): Observable<boolean> {
+    // TODO переделать на subject
     const isAuth: boolean = !!this._sessionStorageService.getSession();
     return of(isAuth);
   }

@@ -5,7 +5,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
-import { MaterialModule } from 'src/material/material.module';
+import { MaterialModule } from '../material/material.module';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './pages/main/main.component';

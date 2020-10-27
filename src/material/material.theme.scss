@@ -9,12 +9,18 @@ $warn: mat-palette($mat-red);
 
 $light-theme: mat-light-theme($primary, $accent, $warn);
 
-@include angular-material-theme($light-theme);
-
-.snack-bar-error {
-  background-color: mat-color($warn, 900);
-  color: mat-color($warn, 50);
-  .mat-simple-snackbar-action {
-    color: mat-color($warn, 50);
+@mixin set-theme($theme) {
+  @include angular-material-theme($theme);
+  $warnPalette: map-get($theme, warn);
+  .snack-bar-error {
+    background-color: mat-color($warnPalette, 900);
+    color: mat-color($warnPalette, 50);
+    .mat-simple-snackbar-action {
+      color: mat-color($warnPalette, 50);
+    }
   }
 }
+
+// TODO Добавить новые темы
+// TODO сделать смену тем
+@include set-theme($light-theme);

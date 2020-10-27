@@ -21,7 +21,19 @@ export class AuthGuard implements CanActivate, CanLoad {
     router: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.checkAccess(state.url);
+    return this._userService.checkSessionUser().pipe(
+      map((isAuth: boolean) => {
+        const isMainPage: boolean = state.url.includes('main');
+        const isViewPostPage: boolean = state.url.includes('view-post');
+        if (isMainPage || isViewPostPage) {
+          return true;
+        }
+        if (!isAuth) {
+          this._router.navigateByUrl('/main');
+        }
+        return isAuth;
+      })
+    );
   }
 
   canLoad(route: Route): Observable<boolean> {

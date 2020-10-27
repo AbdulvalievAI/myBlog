@@ -18,6 +18,7 @@ export class PostComponent implements OnInit, OnDestroy {
   private _postId: IPost['id'];
   private _post: IPost;
   public typeAction: 'create' | 'edit' = 'create';
+  // TODO переименовать в _isSubscribe
   private _isUnsubscribe = false;
 
   constructor(
@@ -27,32 +28,39 @@ export class PostComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _notifierService: NotifierService
-  ) {
-    _activatedRoute.params
-      .pipe(takeWhile(() => !this._isUnsubscribe))
-      .subscribe((params) => (this._postId = params.id));
-  }
+  ) {}
 
   ngOnInit(): void {
+    this._activatedRoute.params
+      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .subscribe((params) => (this._postId = params.id));
+
+    // TODO Условие вынести в subscribe у _activatedRoute
+    // TODO Реализовать метод getPost c LocalStorageService
+    // TODO Реализовать initForm
+    // TODO убрать переменную this._postId
     if (this._postId) {
       const post = this._localStorageService.getPostById(this._postId);
+      // TODO сделать выброс на экран Main через AuthGuard
       if (!post || post.typeSource === 'api') {
         this._router.navigateByUrl('/main');
         return;
       }
+      // TODO сделать выброс на экран Main через AuthGuard
       const userSession = this._sessionStorageService.getSession();
       if (userSession.login !== post.author) {
         this._router.navigateByUrl('/main');
         return;
       }
-
       this.typeAction = 'edit';
       this._post = post;
+      // TODO переделать на this.postFG.setValue()
       this.postFG = this._fb.group({
         title: [this._post.title, Validators.required],
         description: [this._post.description, Validators.required],
       });
     } else {
+      // TODO переделать на this.postFG.setValue()
       this.postFG = this._fb.group({
         title: ['', Validators.required],
         description: ['', Validators.required],

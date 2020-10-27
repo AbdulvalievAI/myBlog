@@ -8,6 +8,7 @@ type typeSnackBar = 'default' | 'error';
 export class NotifierService {
   constructor(private _snackBar: MatSnackBar) {}
 
+  /** Отображение всплывающего окна "snackBar" */
   public snackBar(
     type: typeSnackBar,
     message: string,

@@ -29,10 +29,10 @@
       "kebab-case"
     ],
     "eofline": true,
-    "import-blacklist": [
-      true,
-      "rxjs/Rx"
-    ],
+    "import-blacklist": {
+        "severity": "error",
+        "options": [ [ "^src/.*" ] ]
+      },
     "import-spacing": true,
     "indent": {
       "options": [

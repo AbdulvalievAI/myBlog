@@ -1,3 +1,4 @@
+// TODO Переименовать название файла в article.interface
 /** Формат стуктуры поста api */
 export interface IArticle {
   source: {

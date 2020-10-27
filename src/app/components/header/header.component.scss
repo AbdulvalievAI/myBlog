@@ -1,7 +1,10 @@
-@import "../../../variables";
+@import "src/variables";
 
 :host mat-toolbar {
   position: fixed;
   top: 0;
   z-index: 100;
+  h1 {
+    cursor: pointer;
+  }
 }

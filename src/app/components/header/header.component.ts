@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../../services/user/user.service';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
-import { LoginFormDialogComponent } from '../dialogs/login-form-dialog/login-form-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogsService } from '../../../services/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +12,7 @@ export class HeaderComponent {
   constructor(
     public userService: UserService,
     public sessionStorageService: SessionStorageService,
-    private _dialog: MatDialog
+    private _dialogsService: DialogsService
   ) {}
 
   public logout(): void {
@@ -21,8 +20,6 @@ export class HeaderComponent {
   }
 
   public personBtnHandler(): void {
-    this._dialog.open(LoginFormDialogComponent, {
-      width: '500px',
-    });
+    this._dialogsService.openLogin();
   }
 }

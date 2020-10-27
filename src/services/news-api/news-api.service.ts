@@ -17,9 +17,11 @@ export class NewsApiService implements ISourceData {
     private _httpClient: HttpClient,
     private _localStorageService: LocalStorageService
   ) {}
+  // TODO Вынести в environments
   private _apiUrl = 'https://newsapi.org/v2/';
   private _apiKey = '44caf8fd958444179e57d926c439f559';
 
+  /** Генерация id для поста с API */
   private static generateId(
     title: IPost['title'],
     date: IPost['publishedAt']
@@ -27,6 +29,7 @@ export class NewsApiService implements ISourceData {
     return Md5.hashStr(`${title}_${date}`).toString();
   }
 
+  /** Получение постов в тренде */
   private getTopHeadlines(
     page: number,
     pageSize: number,
@@ -38,6 +41,7 @@ export class NewsApiService implements ISourceData {
     );
   }
 
+  /** Получение общего списка постов поиском */
   private getEverything(
     page: number,
     pageSize: number,
