@@ -61,6 +61,6 @@ export class LoginFormDialogComponent implements OnInit, OnDestroy {
   }
 
   public btnRegistrationHandler(): void {
-    this._dialogRef.close({ open: 'registration-form-dialog' });
+    this._dialogRef.close({ openDialog: 'Registration' });
   }
 }

@@ -70,6 +70,6 @@ export class RegistrationFormDialogComponent implements OnInit, OnDestroy {
   }
 
   public backHandler(): void {
-    this._dialogRef.close({ open: 'login-form-dialog' });
+    this._dialogRef.close({ openDialog: 'Login' });
   }
 }

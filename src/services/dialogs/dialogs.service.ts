@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatDialogConfig } from '@angular/material/dialog/dialog-config';
 import { IDialogCloseResponse } from '../../interfaces/IDialogCloseResponse';
 import { ComponentType } from '@angular/cdk/overlay';
+import { DialogsEnum } from '../../enums/dialogs.enum';
 
 const DIALOG_CONFIG: MatDialogConfig = {
   width: '500px',
@@ -29,24 +30,33 @@ export class DialogsService {
 
   /** Генерация, открытие и обработка события закрытия диалогового окна по переданному компоненту */
   private generateDialog<T>(component: ComponentType<T>): MatDialogRef<T> {
-    const dialog = this._dialog.open<T, MatDialogConfig, IDialogCloseResponse>(
-      component,
-      DIALOG_CONFIG
-    );
-    dialog.afterClosed().subscribe({
-      next: (data) => {
-        if (data && data.open) {
-          switch (data.open) {
-            case 'login-form-dialog':
-              this.openLogin();
-              break;
-            case 'registration-form-dialog':
-              this.openRegistration();
-              break;
-          }
-        }
-      },
+    const dialogRef = this._dialog.open<
+      T,
+      MatDialogConfig,
+      IDialogCloseResponse
+    >(component, DIALOG_CONFIG);
+    dialogRef.afterClosed().subscribe({
+      next: this.afterClosedHandler.bind(this),
     });
-    return dialog;
+    return dialogRef;
+  }
+
+  /** Обработчик события на закрытие диалогового окна */
+  private afterClosedHandler(data: IDialogCloseResponse): void {
+    if (data && data.openDialog) {
+      this.openDialogHandler(data.openDialog);
+    }
+  }
+
+  /** Обработчик события на открытие нового диалогового окна при закрытии текущего */
+  private openDialogHandler(openDialog: keyof typeof DialogsEnum): void {
+    switch (openDialog) {
+      case 'Login':
+        this.openLogin();
+        break;
+      case 'Registration':
+        this.openRegistration();
+        break;
+    }
   }
 }
