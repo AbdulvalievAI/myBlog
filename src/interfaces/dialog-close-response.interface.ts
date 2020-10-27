@@ -1,6 +1,6 @@
-import { DialogsEnum } from '../enums/dialogs.enum';
+import { DialogEnum } from '../enums/dialog.enum';
 
 /** Формат даты в ответе при закрытии диалогового окна */
 export interface IDialogCloseResponse {
-  openDialog?: keyof typeof DialogsEnum;
+  openDialog?: keyof typeof DialogEnum;
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IPost } from '../../../interfaces/IPost';
+import { IPost } from '../../../interfaces/post.interface';
 
 @Component({
   selector: 'app-main-item',

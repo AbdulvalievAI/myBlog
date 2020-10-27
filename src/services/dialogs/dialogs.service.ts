@@ -3,9 +3,9 @@ import { LoginFormDialogComponent } from '../../app/components/dialogs/login-for
 import { RegistrationFormDialogComponent } from '../../app/components/dialogs/registration-form-dialog/registration-form-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatDialogConfig } from '@angular/material/dialog/dialog-config';
-import { IDialogCloseResponse } from '../../interfaces/IDialogCloseResponse';
+import { IDialogCloseResponse } from '../../interfaces/dialog-close-response.interface';
 import { ComponentType } from '@angular/cdk/overlay';
-import { DialogsEnum } from '../../enums/dialogs.enum';
+import { DialogEnum } from '../../enums/dialog.enum';
 
 const DIALOG_CONFIG: MatDialogConfig = {
   width: '500px',
@@ -49,7 +49,7 @@ export class DialogsService {
   }
 
   /** Обработчик события на открытие нового диалогового окна при закрытии текущего */
-  private openDialogHandler(openDialog: keyof typeof DialogsEnum): void {
+  private openDialogHandler(openDialog: keyof typeof DialogEnum): void {
     switch (openDialog) {
       case 'Login':
         this.openLogin();

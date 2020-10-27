@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as uuid from 'uuid';
-import { IPost } from '../../../interfaces/IPost';
+import { IPost } from '../../../interfaces/post.interface';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -82,7 +82,7 @@ export class PostComponent implements OnInit, OnDestroy {
       publishedAt: new Date().toISOString(),
     };
     this._localStorageService.savePosts([post]);
-    this._notifierService.snackBar('default', 'Post created successfully!');
+    this._notifierService.snackBar('Default', 'Post created successfully!');
     this._router.navigateByUrl('/main');
   }
 
@@ -94,17 +94,18 @@ export class PostComponent implements OnInit, OnDestroy {
       publishedAt: new Date().toISOString(),
     };
     this._localStorageService.savePosts([post]);
-    this._notifierService.snackBar('default', 'Post saved successfully!');
+    this._notifierService.snackBar('Default', 'Post saved successfully!');
     this._router.navigateByUrl('/main');
   }
 
   public removePost(): void {
+    // TODO реализовать диалоговое окно
     const isDeleted = confirm(
       'Are you sure that you want to remove this post?'
     );
     if (isDeleted) {
       this._localStorageService.removePost(this._post.id);
-      this._notifierService.snackBar('default', 'Post successfully deleted!');
+      this._notifierService.snackBar('Default', 'Post successfully deleted!');
       this._router.navigateByUrl('/main');
     }
   }

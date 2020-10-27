@@ -5,7 +5,7 @@ import { ValidatorsService } from '../../../../services/validators/validators.se
 import { takeWhile } from 'rxjs/operators';
 import { NotifierService } from '../../../../services/notifier/notifier.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { IDialogCloseResponse } from '../../../../interfaces/IDialogCloseResponse';
+import { IDialogCloseResponse } from '../../../../interfaces/dialog-close-response.interface';
 
 @Component({
   selector: 'app-registration-form-dialog',
@@ -64,7 +64,7 @@ export class RegistrationFormDialogComponent implements OnInit, OnDestroy {
           this._dialogRef.close();
         },
         error: (err) => {
-          this._notifierService.snackBar('error', err.message);
+          this._notifierService.snackBar('Error', err.message);
         },
       });
   }

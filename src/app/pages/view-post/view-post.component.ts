@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
-import { IPost } from '../../../interfaces/IPost';
+import { IPost } from '../../../interfaces/post.interface';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 import { takeWhile } from 'rxjs/operators';
 

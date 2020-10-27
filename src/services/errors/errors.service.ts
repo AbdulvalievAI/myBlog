@@ -1,11 +1,13 @@
 import { ErrorHandler, Injectable } from '@angular/core';
 import { Error } from 'tslint/lib/error';
-import { NotifierService } from '../services/notifier/notifier.service';
+import { NotifierService } from '../notifier/notifier.service';
 
 const MAX_LENGTH_MESSAGE = 60;
 
-@Injectable()
-export class AppErrors implements ErrorHandler {
+@Injectable({
+  providedIn: 'root',
+})
+export class ErrorsService implements ErrorHandler {
   constructor(private _notifierService: NotifierService) {}
 
   private static transformMessage(message: string): string {
@@ -17,8 +19,8 @@ export class AppErrors implements ErrorHandler {
 
   public handleError(error: Error): void {
     this._notifierService.snackBar(
-      'error',
-      AppErrors.transformMessage(error.message)
+      'Error',
+      ErrorsService.transformMessage(error.message)
     );
   }
 }

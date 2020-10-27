@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ISourceData } from '../../interfaces/ISourceData';
+import { ISourceData } from '../../interfaces/source-data.interface';
 import { Observable } from 'rxjs';
-import { IPost } from '../../interfaces/IPost';
-import { IUser } from '../../interfaces/IUser';
-import { IPostsLocalStorage } from '../../interfaces/IPosts-local-storage';
+import { IPost } from '../../interfaces/post.interface';
+import { IUser } from '../../interfaces/user.interface';
+import { IPostsLocalStorage } from '../../interfaces/posts-local-storage.interface';
 
 @Injectable({
   providedIn: 'root',

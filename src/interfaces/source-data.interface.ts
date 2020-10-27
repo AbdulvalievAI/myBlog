@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { IPost } from './IPost';
+import { IPost } from './post.interface';
 
 /** Описание интерфейса с методов для полученя постов/новостей */
 export interface ISourceData {

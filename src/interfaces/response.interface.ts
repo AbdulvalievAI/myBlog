@@ -1,4 +1,4 @@
-import { IArticle } from './IArticle';
+import { IArticle } from './article.interface';
 
 /** Формат данных ответа от api */
 export interface IResponse {

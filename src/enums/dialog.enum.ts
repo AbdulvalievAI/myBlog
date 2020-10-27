@@ -1,4 +1,4 @@
-export enum DialogsEnum {
+export enum DialogEnum {
   Login,
   Registration,
 }

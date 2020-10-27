@@ -1,18 +1,13 @@
-import {
-  Component,
-  ErrorHandler,
-  HostListener,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 /*import { NewsApiService } from 'src/services/news-api/news-api.service';*/
-import { IPost } from '../../../interfaces/IPost';
-import { ISourceData } from '../../../interfaces/ISourceData';
+import { IPost } from '../../../interfaces/post.interface';
+import { ISourceData } from '../../../interfaces/source-data.interface';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user/user.service';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { takeWhile } from 'rxjs/operators';
+import { ErrorsService } from '../../../services/errors/errors.service';
 
 @Component({
   selector: 'app-main',
@@ -34,7 +29,7 @@ export class MainComponent implements OnInit, OnDestroy {
     sourceDataService: LocalStorageService,
     private _router: Router,
     public userService: UserService,
-    private _errorHandler: ErrorHandler
+    private _errorsService: ErrorsService
   ) {
     this._sourceDataService = sourceDataService;
   }
@@ -77,7 +72,7 @@ export class MainComponent implements OnInit, OnDestroy {
           this.isLoad = false;
         },
         error: (err: HttpErrorResponse) => {
-          this._errorHandler.handleError(err.error);
+          this._errorsService.handleError(err.error);
           this.isLoad = false;
           this._isStopLoad = true;
         },

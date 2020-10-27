@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Md5 } from 'ts-md5/dist/md5';
-import { IUser } from '../../interfaces/IUser';
+import { IUser } from '../../interfaces/user.interface';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Observable, of } from 'rxjs';
 import { SessionStorageService } from '../session-storage/session-storage.service';
@@ -33,7 +33,7 @@ export class UserService {
         if (hashPass === user.password) {
           subscriber.next(user);
           this._sessionStorageService.saveSession(user);
-          this._notifierService.snackBar('default', `Hello ${user.login}!`);
+          this._notifierService.snackBar('Default', `Hello ${user.login}!`);
           subscriber.complete();
           return;
         }
@@ -54,7 +54,7 @@ export class UserService {
         this._localStorageService.saveUser(user);
         this._sessionStorageService.saveSession(user);
         subscriber.next(user);
-        this._notifierService.snackBar('default', `Welcome ${user.login}!`);
+        this._notifierService.snackBar('Default', `Welcome ${user.login}!`);
         subscriber.complete();
         return;
       }
@@ -69,7 +69,7 @@ export class UserService {
     if (this._router.url.includes('/post/')) {
       this._router.navigateByUrl('/main');
     }
-    this._notifierService.snackBar('default', 'Logout success. See you later!');
+    this._notifierService.snackBar('Default', 'Logout success. See you later!');
   }
 
   /** Проверка авторизирован в данный момент пользователь */

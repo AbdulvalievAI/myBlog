@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,8 +16,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { MainItemComponent } from './components/main-item/main-item.component';
 import { LoginFormDialogComponent } from './components/dialogs/login-form-dialog/login-form-dialog.component';
 import { RegistrationFormDialogComponent } from './components/dialogs/registration-form-dialog/registration-form-dialog.component';
-
-import { AppErrors } from './app.errors';
 
 @NgModule({
   declarations: [
@@ -38,13 +36,7 @@ import { AppErrors } from './app.errors';
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [
-    FormBuilder,
-    {
-      provide: ErrorHandler,
-      useClass: AppErrors,
-    },
-  ],
+  providers: [FormBuilder],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
