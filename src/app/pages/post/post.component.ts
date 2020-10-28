@@ -7,6 +7,7 @@ import { LocalStorageService } from '../../../services/local-storage/local-stora
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from '../../../services/notifier/notifier.service';
 import { takeWhile } from 'rxjs/operators';
+import { DialogsService } from '../../../services/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-post',
@@ -27,7 +28,8 @@ export class PostComponent implements OnInit, OnDestroy {
     private _localStorageService: LocalStorageService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
-    private _notifierService: NotifierService
+    private _notifierService: NotifierService,
+    private _dialogsService: DialogsService
   ) {}
 
   ngOnInit(): void {
@@ -99,14 +101,21 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   public removePost(): void {
-    // TODO реализовать диалоговое окно
-    const isDeleted = confirm(
-      'Are you sure that you want to remove this post?'
-    );
-    if (isDeleted) {
-      this._localStorageService.removePost(this._post.id);
-      this._notifierService.snackBar('Default', 'Post successfully deleted!');
-      this._router.navigateByUrl('/main');
-    }
+    this._dialogsService
+      .openConfirm({
+        description: 'Are you sure that you want to remove this post?',
+      })
+      .afterClosed()
+      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .subscribe((response) => {
+        if (response?.isResolution) {
+          this._localStorageService.removePost(this._post.id);
+          this._notifierService.snackBar(
+            'Default',
+            'Post successfully deleted!'
+          );
+          this._router.navigateByUrl('/main');
+        }
+      });
   }
 }

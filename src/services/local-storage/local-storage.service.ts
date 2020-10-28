@@ -70,7 +70,7 @@ export class LocalStorageService implements ISourceData {
   public savePosts(newPosts: Array<IPost>): void {
     this.gatAllPosts().subscribe((posts) => {
       const resultPosts: Array<IPost> = [];
-      if (posts && posts.length) {
+      if (posts?.length) {
         resultPosts.push(...posts);
       }
       resultPosts.push(...newPosts);

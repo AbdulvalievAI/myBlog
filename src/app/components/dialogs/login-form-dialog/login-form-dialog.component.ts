@@ -10,7 +10,7 @@ import { IDialogCloseResponse } from '../../../../interfaces/dialog-close-respon
 @Component({
   selector: 'app-login-form-dialog',
   templateUrl: './login-form-dialog.component.html',
-  styleUrls: ['./login-form-dialog.component.scss'],
+  styleUrls: ['../dialog.component.scss'],
 })
 export class LoginFormDialogComponent implements OnInit, OnDestroy {
   public loginFG: FormGroup;

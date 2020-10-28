@@ -4,10 +4,12 @@ import { RegistrationFormDialogComponent } from '../../app/components/dialogs/re
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatDialogConfig } from '@angular/material/dialog/dialog-config';
 import { IDialogCloseResponse } from '../../interfaces/dialog-close-response.interface';
-import { ComponentType } from '@angular/cdk/overlay';
 import { DialogEnum } from '../../enums/dialog.enum';
+import { ConfirmDialogComponent } from '../../app/components/dialogs/confirm-dialog/confirm-dialog.component';
+import { IDialogConfirmData } from '../../interfaces/dialog-confirm-data.interface';
+import { ComponentType } from '@angular/cdk/overlay';
 
-const DIALOG_CONFIG: MatDialogConfig = {
+const DEFAULT_CONFIG: MatDialogConfig = {
   width: '500px',
 };
 
@@ -19,31 +21,54 @@ export class DialogsService {
   constructor(private _dialog: MatDialog) {}
 
   /** Открытие диалогового окна авторизации */
-  public openLogin(): MatDialogRef<LoginFormDialogComponent> {
+  public openLogin(): MatDialogRef<
+    LoginFormDialogComponent,
+    IDialogCloseResponse
+  > {
     return this.generateDialog(LoginFormDialogComponent);
   }
 
   /** Открытие диалогового окна регистрации */
-  public openRegistration(): MatDialogRef<RegistrationFormDialogComponent> {
+  public openRegistration(): MatDialogRef<
+    RegistrationFormDialogComponent,
+    IDialogCloseResponse
+  > {
     return this.generateDialog(RegistrationFormDialogComponent);
   }
 
+  /** Открытие диалогового окна подтверждения действия */
+  public openConfirm(
+    data: IDialogConfirmData
+  ): MatDialogRef<ConfirmDialogComponent, IDialogCloseResponse> {
+    return this.generateDialog(ConfirmDialogComponent, { data });
+  }
+
   /** Генерация, открытие и обработка события закрытия диалогового окна по переданному компоненту */
-  private generateDialog<T>(component: ComponentType<T>): MatDialogRef<T> {
+  private generateDialog<T>(
+    component: ComponentType<T>,
+    config?: MatDialogConfig
+  ): MatDialogRef<T, IDialogCloseResponse> {
     const dialogRef = this._dialog.open<
       T,
       MatDialogConfig,
       IDialogCloseResponse
-    >(component, DIALOG_CONFIG);
+    >(component, Object.assign(DEFAULT_CONFIG, config || {}));
     dialogRef.afterClosed().subscribe({
       next: this.afterClosedHandler.bind(this),
     });
     return dialogRef;
   }
 
+  /** Навешивает подписку на метод afterClosed для диалогового окна */
+  private afterClosedSubscribe(matDialogRef: MatDialogRef<any>): void {
+    matDialogRef.afterClosed().subscribe({
+      next: this.afterClosedHandler.bind(this),
+    });
+  }
+
   /** Обработчик события на закрытие диалогового окна */
   private afterClosedHandler(data: IDialogCloseResponse): void {
-    if (data && data.openDialog) {
+    if (data?.openDialog) {
       this.openDialogHandler(data.openDialog);
     }
   }

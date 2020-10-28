@@ -63,7 +63,7 @@ export class MainComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => !this._isUnsubscribe))
       .subscribe({
         next: (data) => {
-          if (data && data.length) {
+          if (data?.length) {
             this.posts.push(...data);
             this._page += 1;
           } else {

@@ -16,6 +16,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { MainItemComponent } from './components/main-item/main-item.component';
 import { LoginFormDialogComponent } from './components/dialogs/login-form-dialog/login-form-dialog.component';
 import { RegistrationFormDialogComponent } from './components/dialogs/registration-form-dialog/registration-form-dialog.component';
+import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { RegistrationFormDialogComponent } from './components/dialogs/registrati
     PostComponent,
     LoginFormDialogComponent,
     RegistrationFormDialogComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,

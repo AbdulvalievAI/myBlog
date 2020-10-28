@@ -10,7 +10,7 @@ import { IDialogCloseResponse } from '../../../../interfaces/dialog-close-respon
 @Component({
   selector: 'app-registration-form-dialog',
   templateUrl: './registration-form-dialog.component.html',
-  styleUrls: ['./registration-form-dialog.component.scss'],
+  styleUrls: ['../dialog.component.scss'],
 })
 export class RegistrationFormDialogComponent implements OnInit, OnDestroy {
   public registrationFG: FormGroup;
