@@ -18,13 +18,13 @@ const routes: Routes = [
   {
     path: 'post',
     canActivate: [AuthGuard],
-    canLoad: [AuthGuard],
+    canDeactivate: [AuthGuard],
     component: PostComponent,
   },
   {
     path: 'post/:id',
     canActivate: [AuthGuard],
-    canLoad: [AuthGuard],
+    canDeactivate: [AuthGuard],
     component: PostComponent,
   },
   {

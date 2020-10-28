@@ -4,16 +4,23 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router,
+  CanDeactivate,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from '../../services/user/user.service';
 import { map } from 'rxjs/operators';
-// TODO добавить CanDeactivate
+import { PostComponent } from '../../app/pages/post/post.component';
+import { DialogsService } from '../../services/dialogs/dialogs.service';
+
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  constructor(private _userService: UserService, private _router: Router) {}
+export class AuthGuard implements CanActivate, CanDeactivate<PostComponent> {
+  constructor(
+    private _userService: UserService,
+    private _router: Router,
+    private _dialogsService: DialogsService
+  ) {}
 
   canActivate(
     router: ActivatedRouteSnapshot,
@@ -26,6 +33,17 @@ export class AuthGuard implements CanActivate {
         }
         return isAuth;
       })
+    );
+  }
+
+  canDeactivate(component: PostComponent): Observable<boolean> | boolean {
+    console.log(component.getPostFGDirty());
+    return (
+      !component.getPostFGDirty() ||
+      this._dialogsService
+        .openConfirm({ description: 'You have not saved your data. Continue?' })
+        .afterClosed()
+        .pipe(map((response) => response.isResolution))
     );
   }
 }

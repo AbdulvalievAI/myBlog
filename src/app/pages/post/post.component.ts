@@ -90,6 +90,10 @@ export class PostComponent implements OnInit, OnDestroy {
     this._router.navigateByUrl('/main');
   }
 
+  public getPostFGDirty(): boolean {
+    return this.postFG.dirty;
+  }
+
   public removePost(): void {
     this._dialogsService
       .openConfirm({
