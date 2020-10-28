@@ -11,7 +11,6 @@ import { takeWhile } from 'rxjs/operators';
   styleUrls: ['./view-post.component.scss'],
 })
 export class ViewPostComponent implements OnInit, OnDestroy {
-  private _postId: string;
   public post: IPost;
   private _isSubscribe = true;
 
@@ -20,21 +19,22 @@ export class ViewPostComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _localStorageService: LocalStorageService,
     private _sessionStorageService: SessionStorageService
-  ) {
-    _activatedRoute.params
-      .pipe(takeWhile(() => this._isSubscribe))
-      .subscribe((params) => (this._postId = params.id));
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.post = this._localStorageService.getPostById(this._postId);
-    if (!this.post) {
-      this._router.navigateByUrl('/main');
-    }
+    this._activatedRoute.params
+      .pipe(takeWhile(() => this._isSubscribe))
+      .subscribe((params) => {
+        this.post = this.getPost(params.id);
+      });
   }
 
   ngOnDestroy(): void {
     this._isSubscribe = false;
+  }
+
+  private getPost(postId: IPost['id']): IPost {
+    return this._localStorageService.getPostById(postId);
   }
 
   public isEdit(): boolean {

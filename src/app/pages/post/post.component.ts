@@ -42,12 +42,6 @@ export class PostComponent implements OnInit, OnDestroy {
         this.typeAction = 'edit';
         this._post = this.getPost(postId);
 
-        // TODO сделать выброс на экран Main через AuthGuard
-        if (!this.checkAccess(this._post)) {
-          this._router.navigateByUrl('/main');
-          return;
-        }
-
         this.postFG.setValue({
           title: this._post.title,
           description: this._post.description,
@@ -68,14 +62,6 @@ export class PostComponent implements OnInit, OnDestroy {
 
   private getPost(postId: IPost['id']): IPost {
     return this._localStorageService.getPostById(postId);
-  }
-
-  private checkAccess(post: IPost): boolean {
-    if (!post || post.typeSource === 'api') {
-      return false;
-    }
-    const userSession = this._sessionStorageService.getSession();
-    return userSession.login === post.author;
   }
 
   public createPost(): void {

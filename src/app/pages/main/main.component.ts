@@ -15,11 +15,12 @@ import { ErrorsService } from '../../../services/errors/errors.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, OnDestroy {
-  private _isStopLoad: boolean;
+  public isAuthUser = false;
+  private _isStopLoad = false;
   private _sourceDataService: ISourceData;
   private _page = 1;
   private _pageSize = 5;
-  public isLoad: boolean;
+  public isLoad = false;
   public posts: Array<IPost> = [];
   private _isSubscribe = true;
 
@@ -28,13 +29,16 @@ export class MainComponent implements OnInit, OnDestroy {
     /*sourceDataService: NewsApiService,*/
     sourceDataService: LocalStorageService,
     private _router: Router,
-    public userService: UserService,
+    private _userService: UserService,
     private _errorsService: ErrorsService
   ) {
     this._sourceDataService = sourceDataService;
   }
 
   ngOnInit(): void {
+    this._userService.isAuth$
+      .pipe(takeWhile(() => this._isSubscribe))
+      .subscribe((isAuth) => (this.isAuthUser = isAuth));
     this.getNews();
   }
 

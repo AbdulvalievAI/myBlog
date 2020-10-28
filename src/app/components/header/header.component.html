@@ -1,21 +1,13 @@
 <mat-toolbar color="primary">
   <h1 [routerLink]="'main'">My Blog</h1>
   <span style="margin-left: auto"></span>
-  <span *ngIf="userService.checkSessionUser() | async">
+  <span *ngIf="isAuthUser">
     {{ sessionStorageService.getSession().login }}
   </span>
-  <button
-    *ngIf="userService.checkSessionUser() | async"
-    mat-icon-button
-    (click)="logout()"
-  >
+  <button *ngIf="isAuthUser" mat-icon-button (click)="logout()">
     <mat-icon>login</mat-icon>
   </button>
-  <button
-    *ngIf="(userService.checkSessionUser() | async) === false"
-    mat-icon-button
-    (click)="personBtnHandler()"
-  >
+  <button *ngIf="!isAuthUser" mat-icon-button (click)="personBtnHandler()">
     <mat-icon>person_outline</mat-icon>
   </button>
 </mat-toolbar>
