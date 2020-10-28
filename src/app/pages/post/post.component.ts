@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 import * as uuid from 'uuid';
 import { IPost } from '../../../interfaces/post.interface';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
@@ -27,7 +28,8 @@ export class PostComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _notifierService: NotifierService,
-    private _dialogsService: DialogsService
+    private _dialogsService: DialogsService,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
@@ -111,5 +113,9 @@ export class PostComponent implements OnInit, OnDestroy {
           this._router.navigateByUrl('/main');
         }
       });
+  }
+
+  public cancelBtnHandler(): void {
+    this._location.back();
   }
 }

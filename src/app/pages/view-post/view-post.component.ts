@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { IPost } from '../../../interfaces/post.interface';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 import { takeWhile } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-post',
@@ -16,9 +17,9 @@ export class ViewPostComponent implements OnInit, OnDestroy {
 
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _router: Router,
     private _localStorageService: LocalStorageService,
-    private _sessionStorageService: SessionStorageService
+    private _sessionStorageService: SessionStorageService,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
@@ -46,5 +47,9 @@ export class ViewPostComponent implements OnInit, OnDestroy {
       return false;
     }
     return userSession.login === this.post.author;
+  }
+
+  public backBtnHandler(): void {
+    this._location.back();
   }
 }
