@@ -16,7 +16,6 @@ import { DialogsService } from '../../../services/dialogs/dialogs.service';
 })
 export class PostComponent implements OnInit, OnDestroy {
   public postFG: FormGroup;
-  private _postId: IPost['id'];
   private _post: IPost;
   public typeAction: 'create' | 'edit' = 'create';
   private _isSubscribe = true;
@@ -32,45 +31,51 @@ export class PostComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.initForm();
     this._activatedRoute.params
       .pipe(takeWhile(() => this._isSubscribe))
-      .subscribe((params) => (this._postId = params.id));
+      .subscribe((params) => {
+        const postId = params.id;
+        if (!postId) {
+          return;
+        }
+        this.typeAction = 'edit';
+        this._post = this.getPost(postId);
 
-    // TODO Условие вынести в subscribe у _activatedRoute
-    // TODO Реализовать метод getPost c LocalStorageService
-    // TODO Реализовать initForm
-    // TODO убрать переменную this._postId
-    if (this._postId) {
-      const post = this._localStorageService.getPostById(this._postId);
-      // TODO сделать выброс на экран Main через AuthGuard
-      if (!post || post.typeSource === 'api') {
-        this._router.navigateByUrl('/main');
-        return;
-      }
-      // TODO сделать выброс на экран Main через AuthGuard
-      const userSession = this._sessionStorageService.getSession();
-      if (userSession.login !== post.author) {
-        this._router.navigateByUrl('/main');
-        return;
-      }
-      this.typeAction = 'edit';
-      this._post = post;
-      // TODO переделать на this.postFG.setValue()
-      this.postFG = this._fb.group({
-        title: [this._post.title, Validators.required],
-        description: [this._post.description, Validators.required],
+        // TODO сделать выброс на экран Main через AuthGuard
+        if (!this.checkAccess(this._post)) {
+          this._router.navigateByUrl('/main');
+          return;
+        }
+
+        this.postFG.setValue({
+          title: this._post.title,
+          description: this._post.description,
+        });
       });
-    } else {
-      // TODO переделать на this.postFG.setValue()
-      this.postFG = this._fb.group({
-        title: ['', Validators.required],
-        description: ['', Validators.required],
-      });
-    }
   }
 
   ngOnDestroy(): void {
     this._isSubscribe = false;
+  }
+
+  private initForm(): void {
+    this.postFG = this._fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+    });
+  }
+
+  private getPost(postId: IPost['id']): IPost {
+    return this._localStorageService.getPostById(postId);
+  }
+
+  private checkAccess(post: IPost): boolean {
+    if (!post || post.typeSource === 'api') {
+      return false;
+    }
+    const userSession = this._sessionStorageService.getSession();
+    return userSession.login === post.author;
   }
 
   public createPost(): void {
