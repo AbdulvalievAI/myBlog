@@ -13,7 +13,7 @@ import { takeWhile } from 'rxjs/operators';
 export class ViewPostComponent implements OnInit, OnDestroy {
   private _postId: string;
   public post: IPost;
-  private _isUnsubscribe = false;
+  private _isSubscribe = true;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -22,7 +22,7 @@ export class ViewPostComponent implements OnInit, OnDestroy {
     private _sessionStorageService: SessionStorageService
   ) {
     _activatedRoute.params
-      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .pipe(takeWhile(() => this._isSubscribe))
       .subscribe((params) => (this._postId = params.id));
   }
 
@@ -34,7 +34,7 @@ export class ViewPostComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._isUnsubscribe = true;
+    this._isSubscribe = false;
   }
 
   public isEdit(): boolean {

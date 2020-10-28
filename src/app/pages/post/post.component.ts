@@ -19,8 +19,7 @@ export class PostComponent implements OnInit, OnDestroy {
   private _postId: IPost['id'];
   private _post: IPost;
   public typeAction: 'create' | 'edit' = 'create';
-  // TODO переименовать в _isSubscribe
-  private _isUnsubscribe = false;
+  private _isSubscribe = true;
 
   constructor(
     private _fb: FormBuilder,
@@ -34,7 +33,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._activatedRoute.params
-      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .pipe(takeWhile(() => this._isSubscribe))
       .subscribe((params) => (this._postId = params.id));
 
     // TODO Условие вынести в subscribe у _activatedRoute
@@ -71,7 +70,7 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._isUnsubscribe = true;
+    this._isSubscribe = false;
   }
 
   public createPost(): void {
@@ -106,7 +105,7 @@ export class PostComponent implements OnInit, OnDestroy {
         description: 'Are you sure that you want to remove this post?',
       })
       .afterClosed()
-      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .pipe(takeWhile(() => this._isSubscribe))
       .subscribe((response) => {
         if (response?.isResolution) {
           this._localStorageService.removePost(this._post.id);

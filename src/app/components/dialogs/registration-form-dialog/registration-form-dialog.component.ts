@@ -15,7 +15,7 @@ import { IDialogCloseResponse } from '../../../../interfaces/dialog-close-respon
 export class RegistrationFormDialogComponent implements OnInit, OnDestroy {
   public registrationFG: FormGroup;
   public registrationErrors: { [key: string]: string } = {};
-  private _isUnsubscribe = false;
+  private _isSubscribe = true;
 
   constructor(
     private _fb: FormBuilder,
@@ -43,7 +43,7 @@ export class RegistrationFormDialogComponent implements OnInit, OnDestroy {
       }
     );
     this.registrationFG.statusChanges
-      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .pipe(takeWhile(() => this._isSubscribe))
       .subscribe(() => {
         this.registrationErrors = this._validatorsService.getMessagesErrors(
           this.registrationFG
@@ -52,13 +52,13 @@ export class RegistrationFormDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._isUnsubscribe = true;
+    this._isSubscribe = false;
   }
 
   public registrationHandler(): void {
     this._userService
       .registration(this.registrationFG.value)
-      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .pipe(takeWhile(() => this._isSubscribe))
       .subscribe({
         next: () => {
           this._dialogRef.close();

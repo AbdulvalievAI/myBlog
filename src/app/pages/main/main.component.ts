@@ -21,7 +21,7 @@ export class MainComponent implements OnInit, OnDestroy {
   private _pageSize = 5;
   public isLoad: boolean;
   public posts: Array<IPost> = [];
-  private _isUnsubscribe = false;
+  private _isSubscribe = true;
 
   constructor(
     // TODO переделать на сервис обёртку для переключения
@@ -39,7 +39,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._isUnsubscribe = true;
+    this._isSubscribe = false;
   }
 
   // TODO переделать на material scroll
@@ -60,7 +60,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.isLoad = true;
     this._sourceDataService
       .getPosts(this._page, this._pageSize)
-      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .pipe(takeWhile(() => this._isSubscribe))
       .subscribe({
         next: (data) => {
           if (data?.length) {

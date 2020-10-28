@@ -15,7 +15,7 @@ import { IDialogCloseResponse } from '../../../../interfaces/dialog-close-respon
 export class LoginFormDialogComponent implements OnInit, OnDestroy {
   public loginFG: FormGroup;
   public loginErrors: { [key: string]: string } = {};
-  private _isUnsubscribe = false;
+  private _isSubscribe = true;
 
   constructor(
     private _fb: FormBuilder,
@@ -34,7 +34,7 @@ export class LoginFormDialogComponent implements OnInit, OnDestroy {
       password: ['', this._validatorsService.password],
     });
     this.loginFG.statusChanges
-      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .pipe(takeWhile(() => this._isSubscribe))
       .subscribe(() => {
         this.loginErrors = this._validatorsService.getMessagesErrors(
           this.loginFG
@@ -43,13 +43,13 @@ export class LoginFormDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._isUnsubscribe = true;
+    this._isSubscribe = false;
   }
 
   public loginHandler(): void {
     this._userService
       .login(this.loginFG.value.login, this.loginFG.value.password)
-      .pipe(takeWhile(() => !this._isUnsubscribe))
+      .pipe(takeWhile(() => this._isSubscribe))
       .subscribe({
         next: () => {
           this._dialogRef.close();
