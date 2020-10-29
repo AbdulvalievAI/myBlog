@@ -7,6 +7,7 @@ import { IResponse } from '../../interfaces/response.interface';
 import { ISourceData } from '../../interfaces/source-data.interface';
 import { Md5 } from 'ts-md5/dist/md5';
 import { LocalStorageService } from '../local-storage/local-storage.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +18,6 @@ export class NewsApiService implements ISourceData {
     private _httpClient: HttpClient,
     private _localStorageService: LocalStorageService
   ) {}
-  // TODO Вынести в environments
-  private _apiUrl = 'https://newsapi.org/v2/';
-  private _apiKey = '44caf8fd958444179e57d926c439f559';
 
   /** Генерация id для поста с API */
   private static generateId(
@@ -56,7 +54,7 @@ export class NewsApiService implements ISourceData {
   private getConfig(method: string, filters: string): Observable<IPost[]> {
     return this._httpClient
       .get<IResponse>(
-        `${this._apiUrl}${method}?apiKey=${this._apiKey}&${filters}`
+        `${environment.api.url}${method}?apiKey=${environment.api.key}&${filters}`
       )
       .pipe(
         map((res) => res.articles),
