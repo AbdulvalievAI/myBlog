@@ -20,6 +20,7 @@ export class PostComponent implements OnInit, OnDestroy {
   private _post: IPost;
   public typeAction: 'create' | 'edit' = 'create';
   private _isSubscribe = true;
+  private _isResolutionExit = false;
 
   constructor(
     private _fb: FormBuilder,
@@ -76,6 +77,7 @@ export class PostComponent implements OnInit, OnDestroy {
       publishedAt: new Date().toISOString(),
     };
     this._localStorageService.savePosts([post]);
+    this._isResolutionExit = true;
     this._notifierService.snackBar('Default', 'Post created successfully!');
     this._router.navigateByUrl('/main');
   }
@@ -88,12 +90,16 @@ export class PostComponent implements OnInit, OnDestroy {
       publishedAt: new Date().toISOString(),
     };
     this._localStorageService.savePosts([post]);
+    this._isResolutionExit = true;
     this._notifierService.snackBar('Default', 'Post saved successfully!');
     this._router.navigateByUrl('/main');
   }
 
-  public getPostFGDirty(): boolean {
-    return this.postFG.dirty;
+  public isDeactivate(): boolean {
+    if (!this.postFG.dirty) {
+      return true;
+    }
+    return this.postFG.dirty && this._isResolutionExit;
   }
 
   public removePost(): void {

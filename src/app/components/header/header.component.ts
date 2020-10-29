@@ -20,7 +20,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   public logout(): void {
-    this._userService.logout();
+    this._dialogsService
+      .openConfirm({ description: 'Do you really want to leave?' })
+      .afterClosed()
+      .subscribe((response) => {
+        if (response.isResolution) {
+          this._userService.logout();
+        }
+      });
   }
 
   public personBtnHandler(): void {

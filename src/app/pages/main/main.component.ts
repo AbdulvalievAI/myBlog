@@ -1,13 +1,12 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-/*import { NewsApiService } from 'src/services/news-api/news-api.service';*/
 import { IPost } from '../../../interfaces/post.interface';
 import { ISourceData } from '../../../interfaces/source-data.interface';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user/user.service';
-import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { takeWhile } from 'rxjs/operators';
 import { ErrorsService } from '../../../services/errors/errors.service';
+import { SourceDataService } from '../../../services/source-data/source-data.service';
 
 @Component({
   selector: 'app-main',
@@ -25,9 +24,7 @@ export class MainComponent implements OnInit, OnDestroy {
   private _isSubscribe = true;
 
   constructor(
-    // TODO переделать на сервис обёртку для переключения
-    /*sourceDataService: NewsApiService,*/
-    sourceDataService: LocalStorageService,
+    sourceDataService: SourceDataService,
     private _router: Router,
     private _userService: UserService,
     private _errorsService: ErrorsService

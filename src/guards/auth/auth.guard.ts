@@ -37,9 +37,8 @@ export class AuthGuard implements CanActivate, CanDeactivate<PostComponent> {
   }
 
   canDeactivate(component: PostComponent): Observable<boolean> | boolean {
-    console.log(component.getPostFGDirty());
     return (
-      !component.getPostFGDirty() ||
+      component.isDeactivate() ||
       this._dialogsService
         .openConfirm({ description: 'You have not saved your data. Continue?' })
         .afterClosed()
