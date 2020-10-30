@@ -16,6 +16,7 @@ export class SourceDataService implements ISourceData {
     newsApiService: NewsApiService,
     localStorageService: LocalStorageService
   ) {
+    // TODO переключение между сервисами - переделать на более красивое решение
     switch (environment.sourceData) {
       case 'api':
         this._sourceService = newsApiService;
