@@ -18,6 +18,9 @@ import { LoginFormDialogComponent } from './components/dialogs/login-form-dialog
 import { RegistrationFormDialogComponent } from './components/dialogs/registration-form-dialog/registration-form-dialog.component';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 
+import { environment } from '../environments/environment';
+import { SourceDataService } from '../services/source-data/source-data.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +41,13 @@ import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/conf
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [FormBuilder],
+  providers: [
+    FormBuilder,
+    {
+      provide: SourceDataService,
+      useClass: environment.sourceData,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

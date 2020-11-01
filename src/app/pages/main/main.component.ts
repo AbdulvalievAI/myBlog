@@ -16,7 +16,6 @@ import { SourceDataService } from '../../../services/source-data/source-data.ser
 export class MainComponent implements OnInit, OnDestroy {
   public isAuthUser = false;
   private _isStopLoad = false;
-  private _sourceDataService: ISourceData;
   private _page = 1;
   private _pageSize = 5;
   public isLoad = false;
@@ -24,13 +23,11 @@ export class MainComponent implements OnInit, OnDestroy {
   private _isSubscribe = true;
 
   constructor(
-    sourceDataService: SourceDataService,
+    private _sourceDataService: SourceDataService,
     private _router: Router,
     private _userService: UserService,
     private _errorsService: ErrorsService
-  ) {
-    this._sourceDataService = sourceDataService;
-  }
+  ) {}
 
   ngOnInit(): void {
     this._userService.isAuth$
