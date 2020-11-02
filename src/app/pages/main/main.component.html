@@ -1,15 +1,30 @@
 <main>
-  <button mat-fab color="primary" *ngIf="isAuthUser" (click)="fabHandler()">
+  <button
+    mat-fab
+    color="primary"
+    *ngIf="userService.isAuth$ | async"
+    (click)="fabHandler()"
+  >
     <mat-icon>add</mat-icon>
   </button>
-  <ul>
-    <li *ngFor="let post of posts">
-      <article>
-        <app-main-item [post]="post"></app-main-item>
-      </article>
-    </li>
-  </ul>
-  <div *ngIf="isLoad" class="progress">
-    <mat-spinner [diameter]="48"></mat-spinner>
-  </div>
+
+  <cdk-virtual-scroll-viewport
+    #cdkScroll
+    [itemSize]="itemSize"
+    [minBufferPx]="itemSize * 4"
+    [maxBufferPx]="itemSize * 4"
+  >
+    <div class="content-column-center">
+      <ul>
+        <li
+          *cdkVirtualFor="let post of posts"
+          [ngStyle]="{ height: itemSize + 'px' }"
+        >
+          <article>
+            <app-main-item [post]="post"></app-main-item>
+          </article>
+        </li>
+      </ul>
+    </div>
+  </cdk-virtual-scroll-viewport>
 </main>

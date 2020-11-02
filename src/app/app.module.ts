@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from '../material/material.module';
@@ -40,6 +41,7 @@ import { SourceDataService } from '../services/source-data/source-data.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
+    ScrollingModule,
   ],
   providers: [
     FormBuilder,

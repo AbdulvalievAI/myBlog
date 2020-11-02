@@ -1,12 +1,10 @@
-<mat-card matRipple [routerLink]="['/view-post', post.id]">
-  <mat-card-header>
-    <mat-card-title
-      ><h2>{{ post.title }}</h2></mat-card-title
-    >
-  </mat-card-header>
-  <mat-card-content>{{ post.description }} </mat-card-content>
-  <mat-card-footer>
-    <address>{{ post.author }}</address>
-    <time>{{ post.publishedAt | date }}</time>
-  </mat-card-footer>
-</mat-card>
+<div class="main-item" matRipple [routerLink]="['/view-post', post.id]">
+  <div class="main-item__content">
+    <h2 class="main-item__title">{{ post.title }}</h2>
+    <div class="main-item__description">{{ post.description }}</div>
+    <div class="main-item__footer">
+      <address>{{ post.author }}</address>
+      <time>{{ post.publishedAt | date }}</time>
+    </div>
+  </div>
+</div>
