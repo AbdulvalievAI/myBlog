@@ -20,9 +20,8 @@ export class ThemeService {
       return;
     }
     if (this._activeThemeId) {
-      const forDelete = Themes.find((theme) => theme.id === this._activeThemeId)
-        .value;
-      document.body.classList.remove(forDelete);
+      document.body.classList.remove(Themes.find((theme) => theme.id === this._activeThemeId)
+        .value);
     }
     this._activeThemeId = themeId;
     document.body.classList.add(
