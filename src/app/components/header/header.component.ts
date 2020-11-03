@@ -5,6 +5,7 @@ import { DialogsService } from '../../../services/dialogs/dialogs.service';
 import { takeWhile } from 'rxjs/operators';
 import { ThemeService } from '../../../services/theme/theme.service';
 import { ITheme } from '../../../interfaces/theme.interface';
+import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private _userService: UserService,
     public sessionStorageService: SessionStorageService,
     private _dialogsService: DialogsService,
-    public themeService: ThemeService
+    public themeService: ThemeService,
+    private _localStorageService: LocalStorageService
   ) {}
 
   public logout(): void {
@@ -49,5 +51,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public themHandler(id: ITheme['id']): void {
     this.themeService.applyTheme(id);
+    this._localStorageService.saveTheme(id);
   }
 }

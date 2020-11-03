@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ITheme } from '../../interfaces/theme.interface';
 import { Themes } from '../../configs/theme.config';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,9 @@ export class ThemeService {
   private _activeThemeId: ITheme['id'];
   private _defaultTheme: ITheme['id'] = 'indigoTheme';
 
-  constructor() {
-    this.applyTheme(this._defaultTheme);
+  constructor(localStorageService: LocalStorageService) {
+    const localStorageThemeId = localStorageService.getTheme();
+    this.applyTheme(localStorageThemeId || this._defaultTheme);
   }
 
   /** Применяет тему к приложению */
@@ -20,8 +22,9 @@ export class ThemeService {
       return;
     }
     if (this._activeThemeId) {
-      document.body.classList.remove(Themes.find((theme) => theme.id === this._activeThemeId)
-        .value);
+      document.body.classList.remove(
+        Themes.find((theme) => theme.id === this._activeThemeId).value
+      );
     }
     this._activeThemeId = themeId;
     document.body.classList.add(

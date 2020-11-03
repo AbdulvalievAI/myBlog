@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IPost } from '../../interfaces/post.interface';
 import { IUser } from '../../interfaces/user.interface';
 import { IPostsLocalStorage } from '../../interfaces/posts-local-storage.interface';
+import { ITheme } from '../../interfaces/theme.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,8 @@ import { IPostsLocalStorage } from '../../interfaces/posts-local-storage.interfa
 export class LocalStorageService implements ISourceData {
   private _localStorage: Storage;
   private _keyPostsLocalStorage = 'posts';
+  private _keyThemeLocalStorage = 'theme';
+
   constructor() {
     this._localStorage = window.localStorage;
   }
@@ -123,5 +126,15 @@ export class LocalStorageService implements ISourceData {
       resultObj[post.id] = post;
     });
     return resultObj;
+  }
+
+  /** Сохранение выбранной id темы в Local Storage */
+  public saveTheme(themeId: ITheme['id']): void {
+    this._localStorage.setItem(this._keyThemeLocalStorage, themeId);
+  }
+
+  /** Получение ранне выбранной id темы из Local Storage */
+  public getTheme(): ITheme['id'] {
+    return this._localStorage.getItem(this._keyThemeLocalStorage);
   }
 }
