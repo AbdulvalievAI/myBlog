@@ -4,6 +4,7 @@ import { IUser } from '../../interfaces/user.interface';
 @Injectable({
   providedIn: 'root',
 })
+/** Сервис для работы с sessionStorage */
 export class SessionStorageService {
   private _sessionStorage: Storage;
   private _keyUserStorage = 'user';

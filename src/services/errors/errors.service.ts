@@ -7,6 +7,7 @@ const MAX_LENGTH_MESSAGE = 60;
 @Injectable({
   providedIn: 'root',
 })
+/** Сервис обработки ошибок */
 export class ErrorsService implements ErrorHandler {
   constructor(private _notifierService: NotifierService) {}
 

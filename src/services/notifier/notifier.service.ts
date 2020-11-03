@@ -5,6 +5,7 @@ import { SnackBarEnum } from '../../enums/snack-bar.enum';
 @Injectable({
   providedIn: 'root',
 })
+/** Сервис для работы со всплывающими сообщениями */
 export class NotifierService {
   constructor(private _snackBar: MatSnackBar) {}
 

@@ -3,6 +3,8 @@ import { UserService } from '../../../services/user/user.service';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 import { DialogsService } from '../../../services/dialogs/dialogs.service';
 import { takeWhile } from 'rxjs/operators';
+import { ThemeService } from '../../../services/theme/theme.service';
+import { ITheme } from '../../../interfaces/theme.interface';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private _userService: UserService,
     public sessionStorageService: SessionStorageService,
-    private _dialogsService: DialogsService
+    private _dialogsService: DialogsService,
+    public themeService: ThemeService
   ) {}
 
   public logout(): void {
@@ -42,5 +45,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._isSubscribe = false;
+  }
+
+  public themHandler(id: ITheme['id']): void {
+    this.themeService.applyTheme(id);
   }
 }

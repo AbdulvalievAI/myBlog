@@ -10,6 +10,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   exports: [
@@ -23,6 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatMenuModule,
   ],
 })
 export class MaterialModule {}

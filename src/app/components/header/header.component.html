@@ -4,10 +4,37 @@
   <span *ngIf="isAuthUser">
     {{ sessionStorageService.getSession().login }}
   </span>
-  <button *ngIf="isAuthUser" mat-icon-button (click)="logout()">
-    <mat-icon>login</mat-icon>
-  </button>
-  <button *ngIf="!isAuthUser" mat-icon-button (click)="personBtnHandler()">
-    <mat-icon>person_outline</mat-icon>
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="settingsMenu"
+    aria-label="Example icon-button with a menu"
+  >
+    <mat-icon>more_vert</mat-icon>
   </button>
 </mat-toolbar>
+
+<mat-menu #settingsMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="themesMenu">
+    <mat-icon>palette</mat-icon>
+    <span>Themes</span>
+  </button>
+  <button *ngIf="!isAuthUser" (click)="personBtnHandler()" mat-menu-item>
+    <mat-icon>person_outline</mat-icon>
+    <span>Log in</span>
+  </button>
+  <button *ngIf="isAuthUser" (click)="logout()" mat-menu-item>
+    <mat-icon>login</mat-icon>
+    <span>Exit</span>
+  </button>
+</mat-menu>
+
+<mat-menu #themesMenu="matMenu">
+  <button
+    *ngFor="let theme of this.themeService.getThemes()"
+    mat-menu-item
+    (click)="themHandler(theme.id)"
+  >
+    <mat-icon [ngStyle]="{ color: theme.colorPreview }">palette</mat-icon>
+    <span>{{ theme.title }}</span>
+  </button>
+</mat-menu>

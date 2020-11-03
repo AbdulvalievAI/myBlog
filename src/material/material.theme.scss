@@ -1,16 +1,7 @@
-// @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-
 @import "~@angular/material/theming";
 @include mat-core();
 
-$primary: mat-palette($mat-deep-purple);
-$accent: mat-palette($mat-yellow);
-$warn: mat-palette($mat-red);
-
-$light-theme: mat-light-theme($primary, $accent, $warn);
-
-@mixin set-theme($theme) {
-  @include angular-material-theme($theme);
+@mixin set-snack-bar-error($theme) {
   $warnPalette: map-get($theme, warn);
   .snack-bar-error {
     background-color: mat-color($warnPalette, 900);
@@ -21,6 +12,27 @@ $light-theme: mat-light-theme($primary, $accent, $warn);
   }
 }
 
-// TODO Добавить новые темы
-// TODO сделать смену тем
-@include set-theme($light-theme);
+$deepPurplePalette: mat-palette($mat-deep-purple);
+$yellowPalette: mat-palette($mat-yellow);
+$redPalette: mat-palette($mat-red);
+$lightGreenPalette: mat-palette($mat-light-green);
+$indigoPalette: mat-palette($mat-indigo);
+$blueGreyPalette: mat-palette($mat-blue-grey);
+$amberPalette: mat-palette($mat-amber);
+
+$purpleTheme: mat-light-theme($deepPurplePalette, $yellowPalette, $redPalette);
+$indigoTheme: mat-light-theme($indigoPalette, $lightGreenPalette, $redPalette);
+$blueGreyTheme: mat-light-theme($blueGreyPalette, $amberPalette, $redPalette);
+
+.purple-theme {
+  @include angular-material-theme($purpleTheme);
+  @include set-snack-bar-error($purpleTheme);
+}
+.indigo-theme {
+  @include angular-material-theme($indigoTheme);
+  @include set-snack-bar-error($indigoTheme);
+}
+.blue-grey-theme {
+  @include angular-material-theme($blueGreyTheme);
+  @include set-snack-bar-error($blueGreyTheme);
+}

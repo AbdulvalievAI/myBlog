@@ -6,6 +6,7 @@ import { IPost } from '../../interfaces/post.interface';
 @Injectable({
   providedIn: 'root',
 })
+/** Абстрактный сервис для переключения сервисов(ISourceData) через environments */
 export abstract class SourceDataService implements ISourceData {
   abstract getPosts(page: number, pageSize: number): Observable<IPost[]>;
 }
