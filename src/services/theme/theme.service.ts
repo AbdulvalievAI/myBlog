@@ -22,7 +22,6 @@ export class ThemeService {
     if (this._activeThemeId) {
       const forDelete = Themes.find((theme) => theme.id === this._activeThemeId)
         .value;
-      console.log('forDelete', forDelete);
       document.body.classList.remove(forDelete);
     }
     this._activeThemeId = themeId;
