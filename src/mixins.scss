@@ -38,3 +38,11 @@
   -o-animation: fade-in $time linear;
   animation: fade-in $time linear;
 }
+
+@mixin text-truncate($max-lines) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $max-lines;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
