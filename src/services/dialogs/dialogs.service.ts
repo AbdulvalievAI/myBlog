@@ -11,6 +11,7 @@ import { ComponentType } from '@angular/cdk/overlay';
 
 const DEFAULT_CONFIG: MatDialogConfig = {
   width: '500px',
+  autoFocus: false,
 };
 
 @Injectable({
