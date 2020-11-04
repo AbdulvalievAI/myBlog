@@ -7,7 +7,7 @@ import { LoginFormDialogComponent } from '../login-form-dialog/login-form-dialog
 @Component({
   selector: 'app-confirm-dialog',
   templateUrl: './confirm-dialog.component.html',
-  styleUrls: ['../dialog.component.scss'],
+  styleUrls: ['./confirm-dialog.component.scss'],
 })
 export class ConfirmDialogComponent {
   constructor(

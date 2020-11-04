@@ -60,13 +60,6 @@ export class DialogsService {
     return dialogRef;
   }
 
-  /** Навешивает подписку на метод afterClosed для диалогового окна */
-  private afterClosedSubscribe(matDialogRef: MatDialogRef<any>): void {
-    matDialogRef.afterClosed().subscribe({
-      next: this.afterClosedHandler.bind(this),
-    });
-  }
-
   /** Обработчик события на закрытие диалогового окна */
   private afterClosedHandler(data: IDialogCloseResponse): void {
     if (data?.openDialog) {

@@ -1,17 +1,15 @@
-@import "src/variables";
-@import "src/mixins";
+@import "../../../styles/mixins";
+@import "../../../styles/placeholders";
 
 .main-item {
-  width: 100%;
-  height: 100%;
+  @extend %wh-100-percent;
   box-sizing: border-box;
   border-radius: 8px;
   box-shadow: 3px 3px 8px grey;
   cursor: pointer;
   padding: 16px;
   &__content {
-    width: 100%;
-    height: 100%;
+    @extend %wh-100-percent;
     position: relative;
   }
   &__title {
@@ -21,8 +19,7 @@
     @include text-truncate(3);
   }
   &__footer {
-    display: flex;
-    justify-content: space-between;
+    @extend %flex-between;
     bottom: 0;
     position: absolute;
     width: 100%;

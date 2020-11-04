@@ -1,5 +1,5 @@
-@import "src/variables";
+@import "../../../styles/placeholders.scss";
+
 :host mat-card-actions {
-  display: flex;
-  justify-content: space-between;
+  @extend %flex-between;
 }

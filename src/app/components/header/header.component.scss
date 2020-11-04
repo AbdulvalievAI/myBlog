@@ -1,6 +1,4 @@
-@import "src/variables";
-
-:host mat-toolbar {
+:host > mat-toolbar {
   position: fixed;
   top: 0;
   z-index: 100;

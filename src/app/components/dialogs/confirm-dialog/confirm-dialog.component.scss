@@ -1,0 +1,5 @@
+@import "../../../../styles/placeholders.scss";
+
+:host > mat-dialog-actions {
+  @extend %flex-between;
+}

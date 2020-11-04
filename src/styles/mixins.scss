@@ -1,5 +1,3 @@
-@import "src/variables";
-
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0.1;
@@ -32,13 +30,13 @@
     opacity: 1;
   }
 }
-@mixin opacityAnimShow($time: $timeAnimOpacity) {
+
+@mixin opacity-animation($time: 0.4s) {
   -webkit-animation: fade-in $time linear;
   -moz-animation: fade-in $time linear;
   -o-animation: fade-in $time linear;
   animation: fade-in $time linear;
 }
-
 @mixin text-truncate($max-lines) {
   overflow: hidden;
   display: -webkit-box;

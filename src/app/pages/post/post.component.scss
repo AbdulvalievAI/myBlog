@@ -1,14 +1,12 @@
-@import "src/variables";
-%field-text {
-  font-size: 18px;
-  line-height: 25px;
-}
+@import "../../../styles/placeholders";
 
 :host {
+  %field-text {
+    font-size: 18px;
+    line-height: 25px;
+  }
   form {
     width: 100%;
-    display: flex;
-    flex-direction: column;
   }
   input {
     font-weight: bold;
@@ -19,7 +17,6 @@
   }
   .buttons {
     margin-top: 40px;
-    display: flex;
-    justify-content: space-between;
+    @extend %flex-between;
   }
 }
