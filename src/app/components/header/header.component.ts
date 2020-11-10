@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../../services/user/user.service';
 import { SessionStorageService } from '../../../services/session-storage/session-storage.service';
 import { DialogsService } from '../../../services/dialogs/dialogs.service';
@@ -6,6 +6,7 @@ import { takeWhile } from 'rxjs/operators';
 import { ThemeService } from '../../../services/theme/theme.service';
 import { ITheme } from '../../../interfaces/theme.interface';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,12 @@ import { LocalStorageService } from '../../../services/local-storage/local-stora
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  @ViewChild('darkToggle') darkToggle: MatSlideToggle;
+  @ViewChild('contrastToggle') contrastToggle: MatSlideToggle;
   public isAuthUser = false;
   private _isSubscribe = true;
+  public isDark: boolean;
+  public isContrast: boolean;
 
   constructor(
     private _userService: UserService,
@@ -22,7 +27,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private _dialogsService: DialogsService,
     public themeService: ThemeService,
     private _localStorageService: LocalStorageService
-  ) {}
+  ) {
+    const activeTheme = this.themeService.getActiveTheme();
+    this.isDark = activeTheme.isDark;
+    this.isContrast = activeTheme.isContrast;
+  }
 
   public logout(): void {
     this._dialogsService
@@ -51,6 +60,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public themHandler(id: ITheme['id']): void {
     this.themeService.applyTheme(id);
-    this._localStorageService.saveTheme(id);
+  }
+
+  public toggleHandler(value: any): void {
+    const activeTheme = this.themeService.getActiveTheme();
+    this.themeService.applyTheme(activeTheme.id, this.isDark, this.isContrast);
   }
 }

@@ -12,6 +12,7 @@ import { ComponentType } from '@angular/cdk/overlay';
 const DEFAULT_CONFIG: MatDialogConfig = {
   width: '500px',
   autoFocus: false,
+  role: 'dialog',
 };
 
 @Injectable({
@@ -41,7 +42,10 @@ export class DialogsService {
   public openConfirm(
     data: IDialogConfirmData
   ): MatDialogRef<ConfirmDialogComponent, IDialogCloseResponse> {
-    return this.generateDialog(ConfirmDialogComponent, { data });
+    return this.generateDialog(ConfirmDialogComponent, {
+      data,
+      role: 'alertdialog',
+    });
   }
 
   /** Генерация, открытие и обработка события закрытия диалогового окна по переданному компоненту */

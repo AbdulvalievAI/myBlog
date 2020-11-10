@@ -5,6 +5,7 @@ import { IPost } from '../../interfaces/post.interface';
 import { IUser } from '../../interfaces/user.interface';
 import { IPostsLocalStorage } from '../../interfaces/posts-local-storage.interface';
 import { ITheme } from '../../interfaces/theme.interface';
+import { IThemeLocalStorage } from '../../interfaces/theme-local-storage.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -129,12 +130,25 @@ export class LocalStorageService implements ISourceData {
   }
 
   /** Сохранение выбранной id темы в Local Storage */
-  public saveTheme(themeId: ITheme['id']): void {
-    this._localStorage.setItem(this._keyThemeLocalStorage, themeId);
+  public saveTheme(themeId: ITheme['id'], isDark, isContrast): void {
+    const themeInfo = {
+      id: themeId,
+      isDark,
+      isContrast,
+    };
+    this._localStorage.setItem(
+      this._keyThemeLocalStorage,
+      JSON.stringify(themeInfo)
+    );
   }
 
   /** Получение ранне выбранной id темы из Local Storage */
-  public getTheme(): ITheme['id'] {
-    return this._localStorage.getItem(this._keyThemeLocalStorage);
+  public getTheme(): IThemeLocalStorage {
+    let result: IThemeLocalStorage = null;
+    const theme = this._localStorage.getItem(this._keyThemeLocalStorage);
+    if (theme) {
+      result = JSON.parse(theme);
+    }
+    return result;
   }
 }

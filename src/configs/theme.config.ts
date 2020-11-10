@@ -2,20 +2,20 @@ import { ITheme } from '../interfaces/theme.interface';
 
 export const Themes: Array<ITheme> = [
   {
-    id: 'purpleTheme',
-    value: 'purple-theme',
+    id: 'purple',
+    value: 'purple',
     title: 'Purple Theme',
     colorPreview: '#673ab7',
   },
   {
-    id: 'indigoTheme',
-    value: 'indigo-theme',
+    id: 'indigo',
+    value: 'indigo',
     title: 'Indigo Theme',
     colorPreview: '#3f51b5',
   },
   {
-    id: 'blueGreyTheme',
-    value: 'blue-grey-theme',
+    id: 'blueGrey',
+    value: 'blueGrey',
     title: 'Blue Grey Theme',
     colorPreview: '#607d8b',
   },

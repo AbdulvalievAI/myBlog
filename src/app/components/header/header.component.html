@@ -29,6 +29,26 @@
 </mat-menu>
 
 <mat-menu #themesMenu="matMenu">
+  <div class="customMatMenuItem">
+    <mat-slide-toggle
+      class="mat-menu-item"
+      #darkToggle
+      [(ngModel)]="isDark"
+      (change)="toggleHandler($event)"
+      (click)="$event.stopPropagation()"
+      >Dark</mat-slide-toggle
+    >
+  </div>
+  <div class="customMatMenuItem">
+    <mat-slide-toggle
+      class="mat-menu-item"
+      #contrastToggle
+      [(ngModel)]="isContrast"
+      (change)="toggleHandler($event)"
+      (click)="$event.stopPropagation()"
+      >Contrast</mat-slide-toggle
+    >
+  </div>
   <button
     *ngFor="let theme of this.themeService.getThemes()"
     mat-menu-item

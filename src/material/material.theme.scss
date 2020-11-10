@@ -12,27 +12,42 @@
   }
 }
 
-$deepPurplePalette: mat-palette($mat-deep-purple);
-$yellowPalette: mat-palette($mat-yellow);
-$redPalette: mat-palette($mat-red);
-$lightGreenPalette: mat-palette($mat-light-green);
-$indigoPalette: mat-palette($mat-indigo);
-$blueGreyPalette: mat-palette($mat-blue-grey);
-$amberPalette: mat-palette($mat-amber);
+@mixin generate-themes($nameTheme, $primaryColors, $accentColors, $warnColors) {
+  $primary: mat-palette($primaryColors);
+  $primary-contrast: mat-palette($primaryColors, default-contrast);
 
-$purpleTheme: mat-light-theme($deepPurplePalette, $yellowPalette, $redPalette);
-$indigoTheme: mat-light-theme($indigoPalette, $lightGreenPalette, $redPalette);
-$blueGreyTheme: mat-light-theme($blueGreyPalette, $amberPalette, $redPalette);
+  $accent: mat-palette($accentColors);
+  $accent-contrast: mat-palette($accentColors, default-contrast);
 
-.purple-theme {
-  @include angular-material-theme($purpleTheme);
-  @include set-snack-bar-error($purpleTheme);
+  $warn: mat-palette($warnColors);
+  $warn-contrast: mat-palette($warnColors, default-contrast);
+
+  .theme-#{$nameTheme}-light {
+    $theme: mat-light-theme($primary, $accent, $warn);
+    @include angular-material-theme($theme);
+    @include set-snack-bar-error($theme);
+  }
+  .theme-#{$nameTheme}-light-contrast {
+    $theme: mat-light-theme(
+      $primary-contrast,
+      $accent-contrast,
+      $warn-contrast
+    );
+    @include angular-material-theme($theme);
+    @include set-snack-bar-error($theme);
+  }
+  .theme-#{$nameTheme}-dark {
+    $theme: mat-dark-theme($primary, $accent, $warn);
+    @include angular-material-theme($theme);
+    @include set-snack-bar-error($theme);
+  }
+  .theme-#{$nameTheme}-dark-contrast {
+    $theme: mat-dark-theme($primary-contrast, $accent-contrast, $warn-contrast);
+    @include angular-material-theme($theme);
+    @include set-snack-bar-error($theme);
+  }
 }
-.indigo-theme {
-  @include angular-material-theme($indigoTheme);
-  @include set-snack-bar-error($indigoTheme);
-}
-.blue-grey-theme {
-  @include angular-material-theme($blueGreyTheme);
-  @include set-snack-bar-error($blueGreyTheme);
-}
+
+@include generate-themes("purple", $mat-deep-purple, $mat-yellow, $mat-red);
+@include generate-themes("indigo", $mat-indigo, $mat-light-green, $mat-red);
+@include generate-themes("blueGrey", $mat-blue-grey, $mat-amber, $mat-red);

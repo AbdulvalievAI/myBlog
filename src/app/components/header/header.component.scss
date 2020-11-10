@@ -1,8 +1,14 @@
-:host > mat-toolbar {
-  position: fixed;
-  top: 0;
-  z-index: 100;
-  h1 {
-    cursor: pointer;
+:host {
+  mat-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    h1 {
+      cursor: pointer;
+    }
   }
+}
+.mat-slide-toggle {
+  display: block;
+  height: 48px;
 }

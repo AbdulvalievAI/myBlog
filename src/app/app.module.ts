@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
@@ -42,6 +42,7 @@ import { SourceDataService } from '../services/source-data/source-data.service';
     BrowserAnimationsModule,
     MaterialModule,
     ScrollingModule,
+    FormsModule,
   ],
   providers: [
     FormBuilder,
