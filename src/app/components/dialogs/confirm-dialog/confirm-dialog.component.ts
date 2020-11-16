@@ -12,7 +12,7 @@ import { LoginFormDialogComponent } from '../login-form-dialog/login-form-dialog
 export class ConfirmDialogComponent {
   constructor(
     private _dialogRef: MatDialogRef<
-      LoginFormDialogComponent,
+      ConfirmDialogComponent,
       IDialogCloseResponse
     >,
     @Inject(MAT_DIALOG_DATA) public data: IDialogConfirmData
