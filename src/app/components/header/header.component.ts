@@ -59,11 +59,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public themHandler(id: ITheme['id']): void {
-    this.themeService.applyTheme(id);
+    this.applyTheme(id);
   }
 
-  public toggleHandler(value: any): void {
+  public toggleHandler(): void {
     const activeTheme = this.themeService.getActiveTheme();
-    this.themeService.applyTheme(activeTheme.id, this.isDark, this.isContrast);
+    this.applyTheme(activeTheme.id);
+  }
+
+  private applyTheme(themeId: ITheme['id']): void {
+    this.themeService.applyTheme(themeId, this.isDark, this.isContrast);
   }
 }

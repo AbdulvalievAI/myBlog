@@ -34,7 +34,7 @@
       class="mat-menu-item"
       #darkToggle
       [(ngModel)]="isDark"
-      (change)="toggleHandler($event)"
+      (change)="toggleHandler()"
       (click)="$event.stopPropagation()"
       >Dark</mat-slide-toggle
     >
@@ -44,7 +44,7 @@
       class="mat-menu-item"
       #contrastToggle
       [(ngModel)]="isContrast"
-      (change)="toggleHandler($event)"
+      (change)="toggleHandler()"
       (click)="$event.stopPropagation()"
       >Contrast</mat-slide-toggle
     >
