@@ -5,6 +5,11 @@
   ],
   "overrides": [
     {
+      "env": {
+        "browser": true,
+        "es6": true,
+        "es2017": true
+      },
       "files": [
         "*.ts"
       ],
@@ -18,10 +23,21 @@
       "extends": [
         "plugin:@angular-eslint/ng-cli-compat",
         "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:@angular-eslint/recommended",
+        "prettier",
+        "prettier/@typescript-eslint"
       ],
       "plugins": [
-        "eslint-plugin-react"
+        "@angular-eslint/template",
+        "@typescript-eslint",
+        "import",
+        "jsdoc",
+        "prefer-arrow",
+        "prettier"
       ],
       "rules": {
         "@angular-eslint/component-selector": [
